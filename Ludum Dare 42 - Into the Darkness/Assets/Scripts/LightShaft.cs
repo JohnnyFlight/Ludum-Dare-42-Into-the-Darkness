@@ -15,12 +15,12 @@ public class LightShaft : MonoBehaviour {
         SetLightSourceActive(lit);
 	}
 
-    void Deactivate()
+    public void Deactivate()
     {
         SetLightSourceActive(false);
     }
 
-    void Activate()
+    public void Activate()
     {
         SetLightSourceActive(true);
 

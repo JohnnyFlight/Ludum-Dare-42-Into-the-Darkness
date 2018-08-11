@@ -11,6 +11,7 @@ public class Torch : MonoBehaviour {
         Ember
     }
 
+    public GameManager.FuelType type = GameManager.FuelType.Regular;
     public float fuelAmount = 0.0f;
     public float baseLightSourceRadius = 10.0f;
     public float lightSourceRadius;
@@ -74,34 +75,59 @@ public class Torch : MonoBehaviour {
         {
             case TorchState.Ember:
                 extinguish();
+
+                ChangeSprite("torch_ember");
                 break;
             case TorchState.Lit:
                 lightTorch();
+
+                ChangeSprite("torch_lit");
                 break;
             default:
                 //  A torch will never be able to become unlit
+                ChangeSprite("torch_unlit");
                 break;
         }
         
     }
 
+    void ChangeSprite(String name)
+    {
+        Sprite spr = Resources.Load<Sprite>("Sprites/Torch/" + name);
+        SpriteRenderer rend = GetComponent<SpriteRenderer>();
+        rend.sprite = spr;
+    }
+
     //  Returns amount of excess fuel
-    public float addFuel(float amount) {
+    public float addFuel(float amount, GameManager.FuelType type)
+    {
+        if (type != this.type)
+        {
+            this.type = type;
+            fuelAmount = 0;
+        }
+
         if (amount <= 0.0f) return 0.0f; ;
 
         fuelAmount += amount;
+        
+        this.lightTorch();
 
-        if (state == TorchState.Unlit || state == TorchState.Ember)
+        if (fuelAmount > maxFuel)
         {
-            this.lightTorch();
-        }
+            float retVal = fuelAmount - maxFuel;
 
-        if (fuelAmount > maxFuel) return fuelAmount - maxFuel;
+            fuelAmount = maxFuel;
+
+            return retVal;
+        }
         else return 0.0f;
     }
 
     private void extinguish()
     {
+        changeState(TorchState.Ember);    
+
         //  Deactivate light source
         LightSource ls = GetComponentInChildren<LightSource>();
         ls?.gameObject.SetActive(false);
@@ -109,11 +135,12 @@ public class Torch : MonoBehaviour {
 
     private void lightTorch()
     {
-        //  TODO: Activate light source and set radius to max
-        //  Deactivate light source
-        LightSource ls = GetComponentInChildren<LightSource>();
-        ls?.gameObject.SetActive(true);
-        ls?.setRadius(baseLightSourceRadius);
+        changeState(TorchState.Lit);
+        
+        //  Activate light source
+        LightSource[] ls = GetComponentsInChildren<LightSource>(true);
+        ls[0]?.gameObject.SetActive(true);
+        ls[0]?.setRadius(baseLightSourceRadius);
     }
 
     float getLightRadius() {

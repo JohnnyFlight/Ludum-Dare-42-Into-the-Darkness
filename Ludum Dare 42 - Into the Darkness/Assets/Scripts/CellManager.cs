@@ -11,13 +11,6 @@ public class CellManager : MonoBehaviour {
 
     ArrayList Rows;
 
-    struct cell {
-
-        public int x;
-        public int y;
-        public GameObject TileInfo;
-
-    }
 
     public void CellCreate(int x, int y) {
         Width = x;
@@ -30,10 +23,7 @@ public class CellManager : MonoBehaviour {
             ArrayList Columns = new ArrayList();
             for (int columnsLoop = 0; columnsLoop < Height; columnsLoop++)
             {
-                cell newCell;
-                newCell.x = rowsLoop;
-                newCell.y = columnsLoop;
-                newCell.TileInfo = null;
+                GameObject newCell = new GameObject();
                 Columns.Add(newCell);
             }
             Rows.Add(Columns);

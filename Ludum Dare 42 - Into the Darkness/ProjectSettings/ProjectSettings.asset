@@ -616,7 +616,7 @@ PlayerSettings:
   cloudServicesEnabled:
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: 4d078b17-9a61-4464-92b8-88fb88ed4cf0
   projectName: Ludum Dare 42 - Into the Darkness (1)
   organizationId: johnathon-forster
