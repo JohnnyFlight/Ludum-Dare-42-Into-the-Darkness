@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
     float dayLengthSeconds = 1f * 60f;
     public int daysPassed = 0;
     float dayCounter = 0.0f;
+    public CellManager MyCells;
 
     public int Width;
     public int Height;
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour {
 
     void InitializeGame() {
         MyFloor.FloorCreate(Width, Height);
+        MyCells.CellCreate(Width, Height);
     }
     
 	// Update is called once per frame
