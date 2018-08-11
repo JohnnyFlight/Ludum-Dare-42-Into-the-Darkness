@@ -10,7 +10,8 @@ public class CellManager : MonoBehaviour {
     int Height;
 
     ArrayList Rows;
-    
+
+    public Nodes BaseNode;
 
     public void CellCreate(int x, int y) {
         Width = x;
@@ -23,7 +24,7 @@ public class CellManager : MonoBehaviour {
             ArrayList Columns = new ArrayList();
             for (int columnsLoop = 0; columnsLoop < Height; columnsLoop++)
             {
-                GameObject newCell = new GameObject();
+                Nodes newCell = new Nodes();
                 newCell.transform.position.Set(rowsLoop, columnsLoop, 0.0f);
                 Columns.Add(newCell);
             }
