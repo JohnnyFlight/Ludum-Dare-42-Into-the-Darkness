@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour {
         //Sets this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);
         MyFloor = GetComponent<CaveFloorManager>();
+        MyCells= GetComponent<CellManager>();
         InitializeGame();
     }
 
