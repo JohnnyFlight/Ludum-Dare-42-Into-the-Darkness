@@ -4,20 +4,13 @@ using UnityEngine;
 
 public class CellManager : MonoBehaviour {
 
-    // Use this for initialization
+    public static CellManager instance = null;//Static instance of CellManager which allows it to be accessed by any other script
 
     int Width;
     int Height;
 
     ArrayList Rows;
-
-    struct cell {
-
-        public int x;
-        public int y;
-        public GameObject TileInfo;
-
-    }
+    
 
     public void CellCreate(int x, int y) {
         Width = x;
@@ -30,10 +23,8 @@ public class CellManager : MonoBehaviour {
             ArrayList Columns = new ArrayList();
             for (int columnsLoop = 0; columnsLoop < Height; columnsLoop++)
             {
-                cell newCell;
-                newCell.x = rowsLoop;
-                newCell.y = columnsLoop;
-                newCell.TileInfo = null;
+                GameObject newCell = new GameObject();
+                newCell.transform.position.Set(rowsLoop, columnsLoop, 0.0f);
                 Columns.Add(newCell);
             }
             Rows.Add(Columns);
@@ -42,9 +33,26 @@ public class CellManager : MonoBehaviour {
     }
 
 
-    void Start () {
-		
-	}
+    void Awake () {
+
+        //Check if instance already exists
+        if (instance == null)
+        {
+
+            //if not, set instance to this
+            instance = this;
+        }
+        //If instance already exists and it's not this:
+        else if (instance != this)
+        {
+
+            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+            Destroy(gameObject);
+        }
+        //Sets this to not be destroyed when reloading scene
+        DontDestroyOnLoad(gameObject);
+
+    }
 	
 	// Update is called once per frame
 	void Update () {

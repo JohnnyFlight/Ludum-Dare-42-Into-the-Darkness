@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager instance = null;//Static instance of GameManager which allows it to be accessed by any other script.
     public CaveFloorManager MyFloor;
-
+    public CellManager MyCells;
 
     public int Width;
     public int Height;
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
 
     void InitializeGame() {
         MyFloor.FloorCreate(Width, Height);
+        MyCells.CellCreate(Width, Height);
     }
 
 
