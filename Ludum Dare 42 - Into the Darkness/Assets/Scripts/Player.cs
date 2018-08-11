@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
     //  How many units away can a torch be lit from
     private float lightTorchRange = 1.0f;
 
+    public Inventory inventory;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -21,8 +23,24 @@ public class Player : MonoBehaviour {
         fuelTanks.Add(new FuelTank(GameManager.FuelType.Regular, startingFuel));
         fuelTanks.Add(new FuelTank(GameManager.FuelType.Regular, 0.0f));
     }
-	
-	void FixedUpdate () {
+    
+    bool isInLight()
+    {
+        LightSource[] lightsArray = FindObjectsOfType<LightSource>();
+
+        for (int sourceLoop = 0; sourceLoop < lightsArray.Length; sourceLoop++)
+        {
+
+            if (Vector3.Distance((lightsArray[sourceLoop].transform.position), (this.transform.position)) < lightsArray[sourceLoop].radius)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    void FixedUpdate () {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
@@ -36,6 +54,10 @@ public class Player : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.L))
         {
             AttemptLightTorch();
+        }
+
+        if (!isInLight()) {
+            Debug.Log("ded");
         }
     }
 
@@ -56,7 +78,7 @@ public class Player : MonoBehaviour {
         if (emptiest != null)
         {
             float leftover = nearest.addFuel(emptiest.quantity, emptiest.type);
-            emptiest.addFuel(leftover, emptiest.type);
+            emptiest.SetFuel(leftover, emptiest.type);
         }
     }
 

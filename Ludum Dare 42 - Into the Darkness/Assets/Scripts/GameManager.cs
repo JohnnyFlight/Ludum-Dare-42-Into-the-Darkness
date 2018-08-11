@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -10,7 +11,10 @@ public class GameManager : MonoBehaviour {
         Refined
     }
 
-    public static GameManager instance = null;//Static instance of GameManager which allows it to be accessed by any other script.
+    public Text fuelText;
+
+    //Static instance of GameManager which allows it to be accessed by any other script.
+    public static GameManager instance = null;
     public CaveFloorManager MyFloor;
 
     float dayLengthSeconds = 1f * 60f;
@@ -53,7 +57,28 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         UpdateTime(Time.deltaTime);
+
+        UpdateUI();
 	}
+
+    private void UpdateUI()
+    {
+        UpdateFuelText();
+    }
+
+    void UpdateFuelText()
+    {
+        //  Get Player
+        Player player = FindObjectOfType<Player>();
+
+        String message = "Fuel:";
+        for (int i = 0; i < player.fuelTanks.Count; i++)
+        {
+            message += $"\n\nTank {i + 1}\nType: {player.fuelTanks[i].type.ToString()}\nAmount: {player.fuelTanks[i].quantity}";
+        }
+
+        fuelText.text = message;
+    }
 
     private void UpdateTime(float deltaTime)
     {
@@ -100,7 +125,7 @@ public class GameManager : MonoBehaviour {
 
         foreach (Torch torch in torches)
         {
-            float distance = Vector3.Distance(torch.transform.position, position);
+            float distance = Vector2.Distance(torch.transform.position, position);
 
             if (distance < nearestDistance)
             {

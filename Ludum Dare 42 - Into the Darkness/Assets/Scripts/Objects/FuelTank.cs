@@ -37,4 +37,22 @@ public class FuelTank {
             return 0.0f;
         }
     }
+
+    public float SetFuel(float amount, GameManager.FuelType type)
+    {
+        this.type = type;
+
+        quantity = amount;
+        if (quantity > maxFuel)
+        {
+            //  Return excess
+            float retVal = quantity - maxFuel;
+            quantity = maxFuel;
+            return retVal;
+        }
+        else
+        {
+            return 0.0f;
+        }
+    }
 }

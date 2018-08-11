@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Resource : MonoBehaviour {
+public class Resource : MonoBehaviour
+{
+    public enum ResourceType
+    {
+        Stone,
+        Wood,
+        IronOre
+    }
 
 	// Use this for initialization
 	void Start () {
