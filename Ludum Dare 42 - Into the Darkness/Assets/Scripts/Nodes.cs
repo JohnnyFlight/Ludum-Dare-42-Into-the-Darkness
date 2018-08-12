@@ -23,7 +23,7 @@ public class Nodes : MonoBehaviour {
     }
 
 
-    public void SetType(ResourceType newType) {
+    public void SetType(InventoryItem.Type newType) {
 
         MyResource = newType;
     }
@@ -38,19 +38,20 @@ public class Nodes : MonoBehaviour {
         switch (MyResource)
         {
             case InventoryItem.Type.Stone:
-                newInstance = StoneFab;
+                newInstance.SetSprite("Stone");
                 break;
             case InventoryItem.Type.IronOre:
-                newInstance = IronOreFab;
+                newInstance.SetSprite("IronOre");
                 break;
             case InventoryItem.Type.CopperOre:
-                newInstance = CopperOreFab;
+                newInstance.SetSprite("CopperOre");
                 break;
             case InventoryItem.Type.Wood:
-                newInstance = WoodFab;
+                newInstance.SetSprite("Wood");
                 break;
             case InventoryItem.Type.Vine:
-                newInstance = VinesFab;
+                newInstance.SetSprite("Vine");
+                break;
                 break;
             default:
                 break;

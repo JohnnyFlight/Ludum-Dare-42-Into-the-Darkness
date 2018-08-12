@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class Resource : MonoBehaviour
 {
-    Nodes.ResourceType MyType;
+    InventoryItem.Type MyType;
 
     // Use this for initialization
     void Start () {
@@ -20,7 +20,7 @@ public class Resource : MonoBehaviour
         rend.sprite = spr;
     }
 
-    public void SetType(Nodes.ResourceType Type) {
+    public void SetType(InventoryItem.Type Type) {
         MyType = Type;
     }
 
