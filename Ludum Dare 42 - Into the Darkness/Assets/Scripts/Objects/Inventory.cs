@@ -31,7 +31,7 @@ public class Inventory
         Capacity = capacity;
     }
 
-    public bool Contains(InventoryItem.Type type, uint amount) {
+    public bool Contains(InventoryItem.Type type, uint amount = 1) {
         return Items.FindAll(item => item.type == type).Count >= amount;
     }
 
@@ -57,7 +57,7 @@ public class Inventory
     //  doNothingIfNotEnough means that if there are less items in the Inventory than requested, don't remove any
     //  eg. If you want to remove 2 Copper, but the Inventory only has 1, if doNothingIfNotEnough is false, it will still remove the 1 copper
     //  Returns number of removed items
-    public uint RemoveItem(InventoryItem.Type type, uint count, bool doNothingIfNotEnough = true)
+    public uint RemoveItem(InventoryItem.Type type, uint count = 1, bool doNothingIfNotEnough = true)
     {
         if (Contains(type, count))
         {
@@ -89,5 +89,10 @@ public class Inventory
     public bool IsEmpty()
     {
         return Items.Count == 0;
+    }
+
+    public bool IsFull()
+    {
+        return Items.Count >= Capacity;
     }
 }

@@ -26,11 +26,10 @@ public class Player : MonoBehaviour {
         inventory = new Inventory();
 
         inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperOre));
-
-        Recipe r = new Recipes.CopperIngot();
-        if (r.CanCraft(inventory)) {
-            inventory.AddItem(r.Craft(inventory));
-        }
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.Stone));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.Stone));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.Stone));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.Stone));
     }
 
     int ManualGather() {

@@ -58,4 +58,10 @@ public class Recipe
     {
         return new InventoryItem(Result);
     }
+
+    //  Returns a cloned array to prevent modification
+    public Requirement[] GetRequirements()
+    {
+        return Requirements.ToArray();
+    }
 }

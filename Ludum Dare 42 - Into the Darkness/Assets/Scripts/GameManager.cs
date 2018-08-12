@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour {
     public Text fuelText;
     public Text inventoryText;
 
+    //  This is the resource prefab
+    public GameObject res;
+
     //Static instance of GameManager which allows it to be accessed by any other script.
     public static GameManager instance = null;
     public CaveFloorManager MyFloor;
@@ -160,13 +163,12 @@ public class GameManager : MonoBehaviour {
 
     public void CreateResource(InventoryItem.Type type, Vector3 position, float range = 0f)
     {
+        if (type == InventoryItem.Type.Nothing) return;
 
-        GameObject go = new GameObject();
-
+        GameObject go = Instantiate(res);
         go.name = type.ToString();
 
-        Resource newInstance = go.AddComponent<Resource>();
-        
+        Resource newInstance = go.GetComponent<Resource>();
         newInstance.SetType(type);
 
         switch (type)
@@ -177,8 +179,14 @@ public class GameManager : MonoBehaviour {
             case InventoryItem.Type.IronOre:
                 newInstance.SetSprite("IronOre");
                 break;
+            case InventoryItem.Type.IronIngot:
+                newInstance.SetSprite("IronIngot");
+                break;
             case InventoryItem.Type.CopperOre:
                 newInstance.SetSprite("CopperOre");
+                break;
+            case InventoryItem.Type.CopperIngot:
+                newInstance.SetSprite("CopperIngot");
                 break;
             case InventoryItem.Type.Wood:
                 newInstance.SetSprite("Wood");
@@ -191,6 +199,18 @@ public class GameManager : MonoBehaviour {
                 break;
             case InventoryItem.Type.RefinedFuel:
                 newInstance.SetSprite("refined_fuel");
+                break;
+            case InventoryItem.Type.CopperWire:
+                newInstance.SetSprite("CopperWire");
+                break;
+            case InventoryItem.Type.LightStone:
+                newInstance.SetSprite("LightStone");
+                break;
+            case InventoryItem.Type.Gizmo:
+                newInstance.SetSprite("Gizmo");
+                break;
+            case InventoryItem.Type.AdvancedGizmo:
+                newInstance.SetSprite("AdvancedGizmo");
                 break;
             default:
                 break;

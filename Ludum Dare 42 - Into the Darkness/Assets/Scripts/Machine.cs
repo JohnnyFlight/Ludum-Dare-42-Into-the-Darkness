@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Machine : MonoBehaviour {
     public Inventory inventory;
+
+    //  TODO: Change the key to be a list of Requirements to allow for more complex recipes
     public Dictionary<InventoryItem.Type, Recipe> recipes;
 
     bool running = false;
@@ -33,12 +35,47 @@ public class Machine : MonoBehaviour {
     {
         
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void OnMouseOver()
+    {
+        //  Left click
+        if (Input.GetMouseButtonDown(0))
+        {
+            //  Check if Machine inventory is full before trying to put something in it
+            if (inventory.IsFull()) return;
+
+            //  Get Player
+            Player player = FindObjectOfType<Player>();
+
+            if (player == null) return;
+
+            //  Get requirements from recipes
+            //  Due to the simple way we're handling recipes in this class, we can just use the key of the dictionary
+            List<InventoryItem.Type> inputs = new List<InventoryItem.Type>(recipes.Keys);
+        
+            //  See if any of the requirements are in the Player's inventory
+            foreach (InventoryItem.Type input in inputs)
+            {
+                if (player.inventory.Contains(input))
+                {
+                    inventory.AddItem(new InventoryItem(input));
+                    player.inventory.RemoveItem(input);
+                    return;
+                }
+            }
+        }
+        //  Right click - Add Fuel
+        else if (Input.GetMouseButtonDown(1))
+        {
+            
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
 		if (!running)
         {
-            if (!inventory.IsEmpty())
+            if (ContinueRunning())
             {
                 StartRunning();
             }
@@ -51,7 +88,7 @@ public class Machine : MonoBehaviour {
             {
                 MakeItem();
 
-                if (inventory.IsEmpty())
+                if (!ContinueRunning())
                 {
                     StopRunning();
                 }
@@ -62,6 +99,11 @@ public class Machine : MonoBehaviour {
             }
         }
 	}
+
+    protected virtual bool ContinueRunning()
+    {
+        return !inventory.IsEmpty();
+    }
 
     void StartRunning()
     {
@@ -88,11 +130,16 @@ public class Machine : MonoBehaviour {
     void MakeItem()
     {
         //  Get top inventory item and make associated recipe
-        InventoryItem result = recipes[inventory.GetArray()[0].type].Craft(inventory);
+        InventoryItem result = GetRecipe().Craft(inventory);
 
         if (result != null)
         {
             GameManager.instance.CreateResource(result.type, this.transform.position, 1);
         }
+    }
+
+    protected virtual Recipe GetRecipe()
+    {
+        return recipes[inventory.GetArray()[0].type];
     }
 }

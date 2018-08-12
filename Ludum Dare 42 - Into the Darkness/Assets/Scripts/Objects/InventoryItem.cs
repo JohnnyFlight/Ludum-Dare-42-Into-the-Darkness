@@ -7,6 +7,7 @@ public class InventoryItem
 {
     public enum Type
     {
+        Nothing,
         Stone, 
         IronOre, IronIngot, 
         CopperOre, CopperIngot, CopperWire,
@@ -14,7 +15,13 @@ public class InventoryItem
         Vine, Rope,
         Gizmo, AdvancedGizmo,
         Coal, Fuel, RefinedFuel,
-        LightStone
+        LightStone,
+        
+        //  Machines
+        Smelter,
+        Grinder,
+        FuelRefiner,
+        Loom
     };
 
     private Type _type;

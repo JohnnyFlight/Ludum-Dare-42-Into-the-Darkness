@@ -10,14 +10,10 @@ public class FuelRefiner : Machine
 
         Inventory.FilterMode filterMode = Inventory.FilterMode.IncludeFilter;
 
-        recipes.Add(InventoryItem.Type.IronOre, new Recipes.IronIngot());
-        recipes.Add(InventoryItem.Type.CopperOre, new Recipes.CopperIngot());
+        recipes.Add(InventoryItem.Type.Coal, new Recipes.Fuel());
+        recipes.Add(InventoryItem.Type.Fuel, new Recipes.RefinedFuel());
 
         inventory = new Inventory(filter, filterMode);
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperOre));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronOre));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperOre));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronOre));
 
         onStateSpriteName = "Smelter/smelter_on";
         offStateSpriteName = "Smelter/smelter_off";

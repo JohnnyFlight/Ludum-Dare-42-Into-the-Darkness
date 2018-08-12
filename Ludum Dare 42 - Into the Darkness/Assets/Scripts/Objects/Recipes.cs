@@ -5,7 +5,7 @@ namespace Recipes
 {
     class CopperIngot : Recipe
     {
-        public CopperIngot() : base(InventoryItem.Type.CopperOre)
+        public CopperIngot() : base(InventoryItem.Type.CopperIngot)
         {
             Requirements.Add(new Requirement(InventoryItem.Type.CopperOre, 1));
         }
@@ -13,7 +13,7 @@ namespace Recipes
 
     class IronIngot : Recipe
     {
-        public IronIngot() : base(InventoryItem.Type.IronOre)
+        public IronIngot() : base(InventoryItem.Type.IronIngot)
         {
             Requirements.Add(new Requirement(InventoryItem.Type.IronOre, 1));
         }
