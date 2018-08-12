@@ -10,13 +10,6 @@ public class Nodes : MonoBehaviour {
                                                     CopperWire};
     ResourceType MyResource;
 
-    public GameObject StoneFab;
-    public GameObject WoodFab;
-    public GameObject VinesFab;
-    public GameObject IronOreFab;
-    public GameObject CopperOreFab;
-
-
 	// Use this for initialization
 
 	void Awake () {
@@ -25,32 +18,42 @@ public class Nodes : MonoBehaviour {
     public void InitializeNode(ResourceType Type) {
         MyResource = Type;
     }
-    int OnHit() {
 
+
+    int OnHit() {
 
         return 0;
     }
 
+
+    public void SetType(ResourceType newType) {
+
+        MyResource = newType;
+    }
+
+
     void CreateResource (){
 
-        GameObject newInstance = new GameObject();
+        Resource newInstance = gameObject.AddComponent(typeof(Resource)) as Resource;
+
+        newInstance.SetType(MyResource);
 
         switch (MyResource)
         {
             case ResourceType.Stone:
-                newInstance = StoneFab;
+                newInstance.SetSprite("Stone");
                 break;
             case ResourceType.IronOre:
-                newInstance = IronOreFab;
+                newInstance.SetSprite("IronOre");
                 break;
             case ResourceType.CopperOre:
-                newInstance = CopperOreFab;
+                newInstance.SetSprite("CopperOre");
                 break;
             case ResourceType.Wood:
-                newInstance = WoodFab;
+                newInstance.SetSprite("Wood");
                 break;
             case ResourceType.Vine:
-                newInstance = VinesFab;
+                newInstance.SetSprite("Vine");
                 break;
             default:
                 break;
@@ -59,14 +62,17 @@ public class Nodes : MonoBehaviour {
 
         NewPosition.x = this.transform.position.x + Random.Range(-1.0f, 1.0f);
         NewPosition.y = this.transform.position.y + Random.Range(-1.0f, 1.0f);
-        NewPosition.z = this.transform.position.z + 0.1f;
+        NewPosition.z = this.transform.position.z - 0.1f;
 
-        GameObject instance = Instantiate(newInstance, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+        Resource instance = Instantiate(newInstance, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
 
     }
 
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (Input.GetKeyUp(KeyCode.X))
+        {
+            CreateResource();
+        }
+    }
 }

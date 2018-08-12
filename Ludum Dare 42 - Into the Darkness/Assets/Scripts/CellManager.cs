@@ -11,8 +11,6 @@ public class CellManager : MonoBehaviour {
 
     ArrayList Rows;
 
-    public Nodes BaseNode;
-
     public void CellCreate(int x, int y) {
         Width = x;
         Height = y;
@@ -24,8 +22,9 @@ public class CellManager : MonoBehaviour {
             ArrayList Columns = new ArrayList();
             for (int columnsLoop = 0; columnsLoop < Height; columnsLoop++)
             {
-                Nodes newCell = new Nodes();
+                Nodes newCell = gameObject.AddComponent(typeof(Nodes)) as Nodes;
                 newCell.transform.position.Set(rowsLoop, columnsLoop, 0.0f);
+                newCell.SetType(0);
                 Columns.Add(newCell);
             }
             Rows.Add(Columns);

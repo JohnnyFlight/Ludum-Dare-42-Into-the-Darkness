@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void InitializeGame() {
-        MyFloor.FloorCreate(Width, Height);
+        //MyFloor.FloorCreate(Width, Height);
         MyCells.CellCreate(Width, Height);
     }
     

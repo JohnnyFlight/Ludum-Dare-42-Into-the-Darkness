@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Recipe 
 {
-    public List<Tuple<Resource.ResourceType, uint>> Requirements;
+    public List<Tuple<Nodes.ResourceType, uint>> Requirements;
 
     public Recipe()
     {

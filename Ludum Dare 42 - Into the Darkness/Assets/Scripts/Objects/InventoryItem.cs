@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class InventoryItem
 {
-    private Resource.ResourceType _type;
-    public Resource.ResourceType type
+    private Nodes.ResourceType _type;
+    public Nodes.ResourceType type
     {
         get { return _type;  }
         private set { }
     }
 
-    public InventoryItem(Resource.ResourceType type)
+    public InventoryItem(Nodes.ResourceType type)
     {
         _type = type;
     }

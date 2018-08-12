@@ -1,21 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Resource : MonoBehaviour
 {
-    public enum ResourceType
+    Nodes.ResourceType MyType;
+
+    // Use this for initialization
+    void Start () {
+        
+	}
+
+    public void SetSprite(String name)
     {
-        Stone,
-        Wood,
-        IronOre
+        Sprite spr = Resources.Load<Sprite>("Sprites/Pickups/" + name);
+        SpriteRenderer rend = GetComponent<SpriteRenderer>();
+        rend.sprite = spr;
     }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    public void SetType(Nodes.ResourceType Type) {
+        MyType = Type;
+    }
 
     bool inLight() {
         LightSource[] lightsArray = FindObjectsOfType<LightSource>();
