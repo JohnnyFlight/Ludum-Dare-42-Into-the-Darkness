@@ -13,7 +13,8 @@ public class InventoryItem
         Wood, Lumber, 
         Vine, Rope,
         Gizmo, AdvancedGizmo,
-        Fuel, RefinedFuel
+        Coal, Fuel, RefinedFuel,
+        LightStone
     };
 
     private Type _type;

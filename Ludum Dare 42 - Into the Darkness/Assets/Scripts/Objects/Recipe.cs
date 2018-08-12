@@ -53,4 +53,9 @@ public class Recipe
 
         return new InventoryItem(Result);
     }
+
+    protected virtual InventoryItem GetResult()
+    {
+        return new InventoryItem(Result);
+    }
 }
