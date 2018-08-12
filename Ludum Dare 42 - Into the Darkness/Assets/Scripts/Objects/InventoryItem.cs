@@ -7,6 +7,7 @@ public class InventoryItem
 {
     public enum Type
     {
+        Nothing,
         Stone, 
         IronOre, IronIngot, 
         CopperOre, CopperIngot, CopperWire,

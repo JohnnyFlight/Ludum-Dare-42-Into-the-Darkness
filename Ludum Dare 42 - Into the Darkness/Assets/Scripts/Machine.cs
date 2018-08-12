@@ -5,7 +5,13 @@ public class Machine : MonoBehaviour {
     public Inventory inventory;
     public Dictionary<InventoryItem.Type, Recipe> recipes;
 
-    bool running = false;
+   protected bool running = false;
+    bool NeedsFuel = true;
+
+
+    public float maxFuel = 20.0f;
+    public float fuelAmount = 0.0f;
+    public float fuelConsumption = 11.0f;
 
     float processTimeSeconds = 5.0f;
 
@@ -29,13 +35,29 @@ public class Machine : MonoBehaviour {
         }
 	}
 
+    bool BurnFuel(){
+        fuelAmount -= fuelConsumption;
+
+        if (fuelAmount < 0.0f)
+        {
+            fuelAmount = 0.0f;
+            return false;
+        }
+        return true;
+    }
+
     protected virtual void Setup()
     {
         
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    protected virtual bool ContinueRunning()
+    {
+        return !inventory.IsEmpty();
+    }
+
+    // Update is called once per frame
+    void Update () {
 		if (!running)
         {
             if (!inventory.IsEmpty())
@@ -49,9 +71,18 @@ public class Machine : MonoBehaviour {
 
             if (currentTimeSeconds > processTimeSeconds)
             {
-                MakeItem();
+                if (fuelAmount >= fuelConsumption)
+                {
+                    MakeItem();
+                    BurnFuel();
+                }
+                else
+                {
+                    Debug.Log("Insufficent Fuel to Produce");
+                }
 
-                if (inventory.IsEmpty())
+
+                if (!ContinueRunning())
                 {
                     StopRunning();
                 }
@@ -88,11 +119,16 @@ public class Machine : MonoBehaviour {
     void MakeItem()
     {
         //  Get top inventory item and make associated recipe
-        InventoryItem result = recipes[inventory.GetArray()[0].type].Craft(inventory);
+        InventoryItem result = GetRecipe().Craft(inventory);
 
         if (result != null)
         {
             GameManager.instance.CreateResource(result.type, this.transform.position, 1);
         }
+    }
+
+    protected virtual Recipe GetRecipe()
+    {
+        return recipes[inventory.GetArray()[0].type];
     }
 }

@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
     public CaveFloorManager MyFloor;
 
-    float dayLengthSeconds = 5.0f * 60f;
+    float dayLengthSeconds = 5.0f * 6f;
     public int daysPassed = 0;
     float dayCounter = 0.0f;
     public CellManager MyCells;

@@ -14,10 +14,6 @@ public class FuelRefiner : Machine
         recipes.Add(InventoryItem.Type.CopperOre, new Recipes.CopperIngot());
 
         inventory = new Inventory(filter, filterMode);
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperOre));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronOre));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperOre));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronOre));
 
         onStateSpriteName = "Smelter/smelter_on";
         offStateSpriteName = "Smelter/smelter_off";
