@@ -32,6 +32,16 @@ public class Player : MonoBehaviour {
             inventory.AddItem(r.Craft(inventory));
         }
     }
+
+    int ManualGather() {
+
+        int nodeX = Mathf.RoundToInt(this.transform.position.x);
+        int nodeY = Mathf.RoundToInt(this.transform.position.y);
+        Nodes TargetNode = CellManager.instance.Rows[nodeX][nodeY].GetComponent<Nodes>() as Nodes;
+        TargetNode.CreateResource();
+        
+        return 0;
+    }
     
     bool isInLight()
     {
@@ -63,6 +73,11 @@ public class Player : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.L))
         {
             AttemptLightTorch();
+        }
+
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            ManualGather();
         }
 
         if (!isInLight()) {

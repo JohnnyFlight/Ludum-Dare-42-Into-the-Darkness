@@ -7,11 +7,12 @@ using Random = UnityEngine.Random;
 public class Resource : MonoBehaviour
 {
     InventoryItem.Type MyType;
+    SpriteRenderer MyRenderer;
 
     // Use this for initialization
     void Start () {
-        
-	}
+
+    }
 
     public void SetSprite(String name)
     {
