@@ -7,9 +7,13 @@ public class InventoryItem
 {
     public enum Type
     {
-        Stone, IronOre, CopperOre, Wood, Vine,
-        IronIngot, CopperIngot, Lumber, Rope,
-        CopperWire
+        Stone, 
+        IronOre, IronIngot, 
+        CopperOre, CopperIngot, CopperWire,
+        Wood, Lumber, 
+        Vine, Rope,
+        Gizmo, AdvancedGizmo,
+        Fuel, RefinedFuel
     };
 
     private Type _type;

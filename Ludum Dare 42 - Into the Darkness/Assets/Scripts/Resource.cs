@@ -17,6 +17,10 @@ public class Resource : MonoBehaviour
     {
         Sprite spr = Resources.Load<Sprite>("Sprites/Pickups/" + name);
         SpriteRenderer rend = GetComponent<SpriteRenderer>();
+        if (rend == null)
+        {
+            rend = gameObject.AddComponent<SpriteRenderer>();
+        }
         rend.sprite = spr;
     }
 
@@ -44,7 +48,7 @@ public class Resource : MonoBehaviour
     void inDark() {
 
         if (Random.Range(0, 100) == 0) {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 	// Update is called once per frame

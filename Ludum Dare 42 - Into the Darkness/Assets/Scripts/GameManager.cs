@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
     public CaveFloorManager MyFloor;
 
-    float dayLengthSeconds = 1f * 60f;
+    float dayLengthSeconds = 5.0f * 60f;
     public int daysPassed = 0;
     float dayCounter = 0.0f;
     public CellManager MyCells;
@@ -156,5 +156,48 @@ public class GameManager : MonoBehaviour {
 
         //  Only return if it's in range
         return (nearestDistance <= range) ? nearestTorch : null;
+    }
+
+    public void CreateResource(InventoryItem.Type type, Vector3 position, float range = 0f)
+    {
+
+        GameObject go = new GameObject();
+
+        go.name = type.ToString();
+
+        Resource newInstance = go.AddComponent<Resource>();
+        
+        newInstance.SetType(type);
+
+        switch (type)
+        {
+            case InventoryItem.Type.Stone:
+                newInstance.SetSprite("Stone");
+                break;
+            case InventoryItem.Type.IronOre:
+                newInstance.SetSprite("IronOre");
+                break;
+            case InventoryItem.Type.CopperOre:
+                newInstance.SetSprite("CopperOre");
+                break;
+            case InventoryItem.Type.Wood:
+                newInstance.SetSprite("Wood");
+                break;
+            case InventoryItem.Type.Vine:
+                newInstance.SetSprite("Vine");
+                break;
+            case InventoryItem.Type.Fuel:
+                newInstance.SetSprite("fuel");
+                break;
+            case InventoryItem.Type.RefinedFuel:
+                newInstance.SetSprite("refined_fuel");
+                break;
+            default:
+                break;
+        }
+        Vector3 NewPosition = position + (Vector3)UnityEngine.Random.insideUnitCircle * range;
+        NewPosition.z = -0.1f;
+
+        go.transform.position = NewPosition;
     }
 }

@@ -18,15 +18,17 @@ public class Inventory
 
     private FilterMode filterMode;
 
-    const uint Capacity = 10;
+    public uint Capacity { get; private set; }
 
-    public Inventory(List<InventoryItem.Type> filter = null, FilterMode filterMode = FilterMode.NoFilter)
+    public Inventory(List<InventoryItem.Type> filter = null, FilterMode filterMode = FilterMode.NoFilter, uint capacity = 10)
     {
         Items = new List<InventoryItem>();
 
         this.filterMode = filterMode;
 
         Filter = filter ?? new List<InventoryItem.Type>();
+
+        Capacity = capacity;
     }
 
     public bool Contains(InventoryItem.Type type, uint amount) {
@@ -82,5 +84,10 @@ public class Inventory
     //  Returns a copy of the items to prevent modification
     public InventoryItem[] GetArray() {
         return Items.ToArray();
+    }
+
+    public bool IsEmpty()
+    {
+        return Items.Count == 0;
     }
 }

@@ -9,19 +9,17 @@ public class CellManager : MonoBehaviour {
     int Width;
     int Height;
 
-    ArrayList Rows;
+    List<List<Nodes>> Rows;
 
     public void CellCreate(int x, int y) {
         Width = x;
         Height = y;
 
-        Rows = new ArrayList();
-
-        return;
-
+        Rows = new List<List<Nodes>>();
+        
         for (int rowsLoop = 0; rowsLoop < Width; rowsLoop++)
         {
-            ArrayList Columns = new ArrayList();
+            List<Nodes> Columns = new List<Nodes>();
             for (int columnsLoop = 0; columnsLoop < Height; columnsLoop++)
             {
                 Nodes newCell = gameObject.AddComponent(typeof(Nodes)) as Nodes;
@@ -30,7 +28,7 @@ public class CellManager : MonoBehaviour {
                 Columns.Add(newCell);
             }
             Rows.Add(Columns);
-
+            
         }
     }
 
@@ -58,6 +56,5 @@ public class CellManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+    }
 }

@@ -25,6 +25,7 @@ public class LightShaft : MonoBehaviour {
         SetLightSourceActive(true);
 
         //  TODO: Get GameManager to spawn a resource here
+        GameManager.instance.CreateResource(InventoryItem.Type.Fuel, this.transform.position, 1.0f);
     }
 
     void SetLightSourceActive(bool active)
