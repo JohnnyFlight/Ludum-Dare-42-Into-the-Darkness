@@ -5,10 +5,7 @@ using Random = UnityEngine.Random;
 
 public class Nodes : MonoBehaviour {
 
-    public enum ResourceType {Stone,    IronOre,    CopperOre,      Wood,   Vine,
-                                        IronIngot,  CopperIngot,    Lumber, Rope,
-                                                    CopperWire};
-    ResourceType MyResource;
+    InventoryItem.Type MyResource;
 
     public GameObject StoneFab;
     public GameObject WoodFab;
@@ -22,7 +19,7 @@ public class Nodes : MonoBehaviour {
 	void Awake () {
 		
 	}
-    public void InitializeNode(ResourceType Type) {
+    public void InitializeNode(InventoryItem.Type Type) {
         MyResource = Type;
     }
     int OnHit() {
@@ -37,19 +34,19 @@ public class Nodes : MonoBehaviour {
 
         switch (MyResource)
         {
-            case ResourceType.Stone:
+            case InventoryItem.Type.Stone:
                 newInstance = StoneFab;
                 break;
-            case ResourceType.IronOre:
+            case InventoryItem.Type.IronOre:
                 newInstance = IronOreFab;
                 break;
-            case ResourceType.CopperOre:
+            case InventoryItem.Type.CopperOre:
                 newInstance = CopperOreFab;
                 break;
-            case ResourceType.Wood:
+            case InventoryItem.Type.Wood:
                 newInstance = WoodFab;
                 break;
-            case ResourceType.Vine:
+            case InventoryItem.Type.Vine:
                 newInstance = VinesFab;
                 break;
             default:

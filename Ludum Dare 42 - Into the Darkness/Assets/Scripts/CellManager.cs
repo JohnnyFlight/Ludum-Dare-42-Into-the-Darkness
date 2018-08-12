@@ -18,7 +18,9 @@ public class CellManager : MonoBehaviour {
         Height = y;
 
         Rows = new ArrayList();
-        
+
+        return;
+
         for (int rowsLoop = 0; rowsLoop < Width; rowsLoop++)
         {
             ArrayList Columns = new ArrayList();

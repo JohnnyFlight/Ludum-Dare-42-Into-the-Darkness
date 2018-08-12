@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public Text fuelText;
+    public Text inventoryText;
 
     //Static instance of GameManager which allows it to be accessed by any other script.
     public static GameManager instance = null;
@@ -64,6 +65,24 @@ public class GameManager : MonoBehaviour {
     private void UpdateUI()
     {
         UpdateFuelText();
+        UpdateInventoryText();
+    }
+
+    private void UpdateInventoryText()
+    {
+        //  TODO: Just provide a linked instance of the player to save on the lookup?
+        Player player = FindObjectOfType<Player>();
+
+        String message = "Items: ";
+        InventoryItem[] items = player.inventory.GetArray();
+
+        foreach (InventoryItem item in items)
+        {
+            message += $"\n\n{item.type.ToString()}";
+        }
+
+        if (inventoryText != null)
+            inventoryText.text = message;
     }
 
     void UpdateFuelText()
@@ -77,7 +96,8 @@ public class GameManager : MonoBehaviour {
             message += $"\n\nTank {i + 1}\nType: {player.fuelTanks[i].type.ToString()}\nAmount: {player.fuelTanks[i].quantity}";
         }
 
-        fuelText.text = message;
+        if (fuelText != null)
+            fuelText.text = message;
     }
 
     private void UpdateTime(float deltaTime)

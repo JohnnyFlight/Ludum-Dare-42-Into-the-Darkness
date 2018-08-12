@@ -22,6 +22,15 @@ public class Player : MonoBehaviour {
         fuelTanks = new List<FuelTank>();
         fuelTanks.Add(new FuelTank(GameManager.FuelType.Regular, startingFuel));
         fuelTanks.Add(new FuelTank(GameManager.FuelType.Regular, 0.0f));
+
+        inventory = new Inventory();
+
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperOre));
+
+        Recipe r = new Recipes.CopperIngot();
+        if (r.CanCraft(inventory)) {
+            inventory.AddItem(r.Craft(inventory));
+        }
     }
     
     bool isInLight()

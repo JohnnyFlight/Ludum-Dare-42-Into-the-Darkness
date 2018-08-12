@@ -5,13 +5,6 @@ using Random = UnityEngine.Random;
 
 public class Resource : MonoBehaviour
 {
-    public enum ResourceType
-    {
-        Stone,
-        Wood,
-        IronOre
-    }
-
 	// Use this for initialization
 	void Start () {
 		
