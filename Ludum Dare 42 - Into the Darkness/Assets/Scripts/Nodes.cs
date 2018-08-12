@@ -7,9 +7,15 @@ public class Nodes : MonoBehaviour {
 
     InventoryItem.Type MyResource;
 
-	// Use this for initialization
+    public GameObject StoneFab;
+    public GameObject WoodFab;
+    public GameObject VinesFab;
+    public GameObject IronOreFab;
+    public GameObject CopperOreFab;
 
-	void Awake () {
+    // Use this for initialization
+
+    void Awake () {
 		
 	}
     public void InitializeNode(InventoryItem.Type Type) {
@@ -28,10 +34,16 @@ public class Nodes : MonoBehaviour {
         MyResource = newType;
     }
 
+    public void SetPosition(float x, float y) {
+        this.gameObject.transform.position.Set(x, y, 0.0f);
+    }
 
-    void CreateResource (){
+    public void CreateResource()
+    {
 
-        Resource newInstance = gameObject.AddComponent(typeof(Resource)) as Resource;
+        GameObject go = new GameObject();
+
+        Resource newInstance = go.AddComponent(typeof(Resource)) as Resource;
 
         newInstance.SetType(MyResource);
 
@@ -52,7 +64,6 @@ public class Nodes : MonoBehaviour {
             case InventoryItem.Type.Vine:
                 newInstance.SetSprite("Vine");
                 break;
-                break;
             default:
                 break;
         }
@@ -62,12 +73,11 @@ public class Nodes : MonoBehaviour {
         NewPosition.y = this.transform.position.y + Random.Range(-1.0f, 1.0f);
         NewPosition.z = this.transform.position.z - 0.1f;
 
-        Resource instance = Instantiate(newInstance, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
-
+        go.transform.position = NewPosition;
     }
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
         if (Input.GetKeyUp(KeyCode.X))
         {
             CreateResource();

@@ -20,12 +20,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4263029390662254}
   - component: {fileID: 212579084428087170}
+  - component: {fileID: 114888346418807866}
   m_Layer: 0
   m_Name: CopperOrePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4263029390662254
 Transform:
@@ -40,6 +41,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114888346418807866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1471439638092048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace09d32e2763624eaca4a9006e83034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212579084428087170
 SpriteRenderer:
   m_ObjectHideFlags: 1

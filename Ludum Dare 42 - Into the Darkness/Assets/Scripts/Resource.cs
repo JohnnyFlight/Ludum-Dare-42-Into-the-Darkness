@@ -7,16 +7,21 @@ using Random = UnityEngine.Random;
 public class Resource : MonoBehaviour
 {
     InventoryItem.Type MyType;
+    SpriteRenderer MyRenderer;
 
     // Use this for initialization
     void Start () {
-        
-	}
+
+    }
 
     public void SetSprite(String name)
     {
         Sprite spr = Resources.Load<Sprite>("Sprites/Pickups/" + name);
         SpriteRenderer rend = GetComponent<SpriteRenderer>();
+        if (rend == null)
+        {
+            rend = gameObject.AddComponent<SpriteRenderer>();
+        }
         rend.sprite = spr;
     }
 
@@ -43,8 +48,8 @@ public class Resource : MonoBehaviour
 
     void inDark() {
 
-        if (Random.Range(0, 100) == 0) {
-            Destroy(this);
+        if (Random.Range(0, 1) == 0) {
+            Destroy(this.gameObject);
         }
     }
 	// Update is called once per frame

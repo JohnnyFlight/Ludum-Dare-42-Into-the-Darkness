@@ -9,25 +9,28 @@ public class CellManager : MonoBehaviour {
     int Width;
     int Height;
 
-    ArrayList Rows;
+    public List<List<GameObject>> Rows;
+
+
+    public GameObject BaseNode;
 
     public void CellCreate(int x, int y) {
         Width = x;
         Height = y;
 
-        Rows = new ArrayList();
-
-        return;
+        Rows = new List<List<GameObject>>();
 
         for (int rowsLoop = 0; rowsLoop < Width; rowsLoop++)
         {
-            ArrayList Columns = new ArrayList();
+            List<GameObject> Columns = new List<GameObject>();
             for (int columnsLoop = 0; columnsLoop < Height; columnsLoop++)
             {
-                Nodes newCell = gameObject.AddComponent(typeof(Nodes)) as Nodes;
-                newCell.transform.position.Set(rowsLoop, columnsLoop, 0.0f);
-                newCell.SetType(0);
-                Columns.Add(newCell);
+
+                Vector3 NewPosition = new Vector3();
+                NewPosition.Set(rowsLoop, columnsLoop, 0.0f);
+                GameObject toInstantiate = Instantiate(BaseNode, NewPosition, transform.rotation);
+
+                Columns.Add(toInstantiate);
             }
             Rows.Add(Columns);
 
@@ -58,6 +61,6 @@ public class CellManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        int i = 0;
 	}
 }
