@@ -149,6 +149,30 @@ public class GameManager : MonoBehaviour
         return (nearestDistance <= range) ? nearestTorch : null;
     }
 
+    public CrankGatherer GetNearestCrank(Vector3 position, float range)
+    {
+        CrankGatherer[] cranks = FindObjectsOfType<CrankGatherer>();
+
+        if (cranks == null) return null;
+
+        CrankGatherer nearestCrank = null;
+        float nearestDistance = float.PositiveInfinity;
+
+        foreach (CrankGatherer crank in cranks)
+        {
+            float distance = Vector2.Distance(crank.transform.position, position);
+
+            if (distance < nearestDistance)
+            {
+                nearestCrank = crank;
+                nearestDistance = distance;
+            }
+        }
+
+        //  Only return if it's in range
+        return (nearestDistance <= range) ? nearestCrank : null;
+    }
+
     public void CreateResource(InventoryItem.Type type, Vector3 position, float range = 0f)
     {
         if (type == InventoryItem.Type.Nothing) return;
@@ -204,7 +228,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
         Vector3 NewPosition = position + (Vector3)UnityEngine.Random.insideUnitCircle * range;
-        NewPosition.z = -0.1f;
+        NewPosition.z = -0.075f;
 
         go.transform.position = NewPosition;
     }

@@ -57,6 +57,7 @@ MonoBehaviour:
   maxFuel: 20
   fuelAmount: 20
   fuelConsumption: 11
+  currentTimeSeconds: 0
 --- !u!212 &212191146078621158
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e29cf6447b320c94a88ad9eb92676270, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

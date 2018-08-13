@@ -84,7 +84,7 @@ public class Resource : MonoBehaviour
         for (int sourceLoop = 0; sourceLoop < lightsArray.Length; sourceLoop++)
         {
 
-            if (Vector3.Distance((lightsArray[sourceLoop].transform.position), (this.transform.position)) < lightsArray[sourceLoop].radius)
+            if (Vector2.Distance((lightsArray[sourceLoop].transform.position), (this.transform.position)) < lightsArray[sourceLoop].radius)
             {
                 inLight = true;
                 break;

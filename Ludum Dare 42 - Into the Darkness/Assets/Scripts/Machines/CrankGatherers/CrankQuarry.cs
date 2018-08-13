@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoweredDrill : PoweredGatherer
+public class CrankQuarry : CrankGatherer
 {
-
     protected override void Setup()
     {
         recipes = new Dictionary<InventoryItem.Type, Recipe>();
@@ -12,7 +11,7 @@ public class PoweredDrill : PoweredGatherer
 
         List<InventoryItem.Type> filter = new List<InventoryItem.Type>();
 
-        recipes.Add(InventoryItem.Type.Nothing, new Recipes.GatherCopperOre());
+        recipes.Add(InventoryItem.Type.Nothing, new Recipes.GatherStone());
         running = true;
 
         compatibleTypes.Add(InventoryItem.Type.CopperOre);
@@ -21,5 +20,4 @@ public class PoweredDrill : PoweredGatherer
         onStateSpriteName = "Smelter/smelter_on";
         offStateSpriteName = "Smelter/smelter_off";
     }
-
 }

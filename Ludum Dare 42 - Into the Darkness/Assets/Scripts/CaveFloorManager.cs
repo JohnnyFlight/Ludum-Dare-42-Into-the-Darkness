@@ -23,7 +23,7 @@ public class CaveFloorManager : MonoBehaviour {
             for (int heightLoop = 0; heightLoop < Height; heightLoop++)
             {
                 GameObject toInstantiate = FloorPrefabs[Random.Range(0, FloorPrefabs.Length)];
-                GameObject instance = Instantiate(toInstantiate, new Vector3(widthLoop, heightLoop, 0.1f), Quaternion.identity) as GameObject;
+                GameObject instance = Instantiate(toInstantiate, new Vector3(widthLoop, heightLoop, 0.0f), Quaternion.identity) as GameObject;
             }
         }
     }

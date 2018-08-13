@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class LightSource : MonoBehaviour {
 
-    public float radius = 10.0f;
+    public float radius = 5.0f;
+
+    Light MyLight;
 
 	// Use this for initialization
 	void Start () {
-
-	}
+        MyLight = this.gameObject.AddComponent<Light>();
+        MyLight.type = LightType.Spot;
+        MyLight.spotAngle = 60.0f;
+        MyLight.range = 12;
+        MyLight.intensity = 20;
+        MyLight.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -10.0f);
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        int i = 0;
 	}
 
     public void setRadius(float newRadius) {
         radius = newRadius;
+
+        MyLight.spotAngle = radius*6.0f;
 
         //  Scale sprite to have a width and height of twice radius
         gameObject.transform.localScale = new Vector3(2.0f * radius, 2.0f * radius, 1.0f);
