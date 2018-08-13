@@ -26,7 +26,7 @@ public class LightSource : MonoBehaviour {
     public void setRadius(float newRadius) {
         radius = newRadius;
 
-        MyLight.spotAngle = radius*6.0f;
+        MyLight.spotAngle = radius*12.0f;
 
         //  Scale sprite to have a width and height of twice radius
         gameObject.transform.localScale = new Vector3(2.0f * radius, 2.0f * radius, 1.0f);

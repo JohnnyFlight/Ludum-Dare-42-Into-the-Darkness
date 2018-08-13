@@ -163,6 +163,11 @@ public class Machine : MonoBehaviour {
         rend.sprite = spr;
     }
 
+    protected virtual bool ContinueRunning()
+    {
+        return !inventory.IsEmpty();
+    }
+
     protected void MakeItem()
     {
         //  Get top inventory item and make associated recipe
