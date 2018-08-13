@@ -123,12 +123,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   fuelAmount: 10
-  baseLightSourceRadius: 5
+  baseLightSourceRadius: 8
   lightSourceRadius: 0
   state: 1
-  fuelBurnRatePerSecond: 1
-  lowFuelThreshold: 5
-  maxFuel: 20
+  fuelBurnRatePerSecond: 0.1
+  lowFuelThreshold: 2
+  maxFuel: 10
 --- !u!212 &212234464611915216
 SpriteRenderer:
   m_ObjectHideFlags: 1

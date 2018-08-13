@@ -45,18 +45,18 @@ public class CellManager : MonoBehaviour {
     {
         int r = Random.Range(0, 100);
 
-        if (r < 5) {
+        if (r < 2) {
             return InventoryItem.Type.IronOre;
         }
-        else if (r < 10)
+        else if (r < 4)
         {
             return InventoryItem.Type.CopperOre;
         }
-        else if (r < 15)
+        else if (r < 6)
         {
             return InventoryItem.Type.Wood;
         }
-        else if (r < 20)
+        else if (r < 8)
         {
             return InventoryItem.Type.Vine;
         }

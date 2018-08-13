@@ -34,8 +34,8 @@ public class Player : MonoBehaviour {
 
         CraftableRecipes = new List<Recipe>();
         //  TODO: Find a better solution for this, so it doesn't need to be maintained constantly
-        CraftableRecipes.Add(new Recipes.MechRightArm());
         CraftableRecipes.Add(new Recipes.PoweredDrill());
+        CraftableRecipes.Add(new Recipes.MechRightArm());
         CraftableRecipes.Add(new Recipes.PoweredQuarry());
         CraftableRecipes.Add(new Recipes.PoweredSaw());
 
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour {
         fuelTanks.Add(new FuelTank(GameManager.FuelType.Regular, startingFuel));
         fuelTanks.Add(new FuelTank(GameManager.FuelType.Regular, 0.0f));
 
-        inventory = new Inventory();
+        inventory = new Inventory(capacity: 10);
         
         inventory.AddItem(new InventoryItem(InventoryItem.Type.Gizmo));
         inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
@@ -151,6 +151,11 @@ public class Player : MonoBehaviour {
         {
             AttemptCrank();
         }
+
+        //  Snap camera x and y to player x and y
+        Vector3 cameraPos = new Vector3(transform.position.x, transform.position.y, -10);
+
+        Camera.main.transform.position = cameraPos;
 
         if (!isInLight() && state != PlayerState.Dead) {
             //  Start Match

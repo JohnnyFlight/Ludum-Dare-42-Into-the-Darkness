@@ -38,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1409429941724734}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -89,9 +89,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0a8c86ce344d54989964810f31f57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2.5
+  moveSpeed: 1
   fuelTanks: []
   startingFuel: 100
+  inventory:
+    Items: []
 --- !u!212 &212546549516675350
 SpriteRenderer:
   m_ObjectHideFlags: 1
