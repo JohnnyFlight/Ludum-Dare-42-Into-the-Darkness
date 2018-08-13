@@ -7,7 +7,13 @@ public class Machine : MonoBehaviour {
     //  TODO: Change the key to be a list of Requirements to allow for more complex recipes
     public Dictionary<InventoryItem.Type, Recipe> recipes;
 
-    bool running = false;
+   protected bool running = false;
+    bool NeedsFuel = true;
+
+
+    public float maxFuel = 20.0f;
+    public float fuelAmount = 0.0f;
+    public float fuelConsumption = 11.0f;
 
     float processTimeSeconds = 5.0f;
 
@@ -31,9 +37,25 @@ public class Machine : MonoBehaviour {
         }
 	}
 
+    bool BurnFuel(){
+        fuelAmount -= fuelConsumption;
+
+        if (fuelAmount < 0.0f)
+        {
+            fuelAmount = 0.0f;
+            return false;
+        }
+        return true;
+    }
+
     protected virtual void Setup()
     {
         
+    }
+
+    protected virtual bool ContinueRunning()
+    {
+        return !inventory.IsEmpty();
     }
 
     private void OnMouseOver()
@@ -86,7 +108,16 @@ public class Machine : MonoBehaviour {
 
             if (currentTimeSeconds > processTimeSeconds)
             {
-                MakeItem();
+                if (fuelAmount >= fuelConsumption)
+                {
+                    MakeItem();
+                    BurnFuel();
+                }
+                else
+                {
+                    Debug.Log("Insufficent Fuel to Produce");
+                }
+
 
                 if (!ContinueRunning())
                 {

@@ -28,6 +28,10 @@ public class Nodes : MonoBehaviour {
         return 0;
     }
 
+    public InventoryItem.Type GetResourceType() {
+
+        return MyResource;
+    }
 
     public void SetType(InventoryItem.Type newType) {
 
@@ -78,9 +82,9 @@ public class Nodes : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyUp(KeyCode.X))
+       /*if (Input.GetKeyUp(KeyCode.X))
         {
             GameManager.instance.CreateResource(MyResource, this.transform.position);
-        }
+        }*/
     }
 }

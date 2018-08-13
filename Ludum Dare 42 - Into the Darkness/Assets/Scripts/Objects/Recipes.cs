@@ -43,6 +43,46 @@ namespace Recipes
         }
     }
 
+    class GatherStone : Recipe
+    {
+        public GatherStone() : base(InventoryItem.Type.Stone)
+        {
+            
+        }
+    }
+
+    class GatherWood : Recipe
+    {
+        public GatherWood() : base(InventoryItem.Type.Wood)
+        {
+
+        }
+    }
+
+    class GatherVine : Recipe
+    {
+        public GatherVine() : base(InventoryItem.Type.Vine)
+        {
+
+        }
+    }
+
+    class GatherIronOre : Recipe
+    {
+        public GatherIronOre() : base(InventoryItem.Type.IronOre)
+        {
+
+        }
+    }
+
+    class GatherCopperOre : Recipe
+    {
+        public GatherCopperOre() : base(InventoryItem.Type.CopperOre)
+        {
+
+        }
+    }
+
     class GroundStone : Recipe
     {
         public GroundStone() : base(InventoryItem.Type.Stone)

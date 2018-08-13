@@ -32,14 +32,28 @@ public class Player : MonoBehaviour {
         inventory.AddItem(new InventoryItem(InventoryItem.Type.Stone));
     }
 
-    int ManualGather() {
+    bool ManualGather() {
 
-        int nodeX = Mathf.RoundToInt(this.transform.position.x);
-        int nodeY = Mathf.RoundToInt(this.transform.position.y);
-        Nodes TargetNode = CellManager.instance.Rows[nodeX][nodeY].GetComponent<Nodes>() as Nodes;
-        TargetNode.CreateResource();
+        int maxX = GameManager.instance.Width;
+        int maxY = GameManager.instance.Height;
+
         
-        return 0;
+        int nodeX = Mathf.RoundToInt(this.transform.position.x);
+        if ((nodeX >= maxX)||(nodeX < 0))
+        {
+            return false;
+        }
+
+        int nodeY = Mathf.RoundToInt(this.transform.position.y);
+        if ((nodeY >= maxY) || (nodeY < 0))
+        {
+            return false;
+        }
+
+        Nodes TargetNode = CellManager.instance.Rows[nodeX][nodeY].GetComponent<Nodes>() as Nodes;
+        GameManager.instance.CreateResource(TargetNode.GetResourceType(), TargetNode.transform.position, 1.0f);
+        
+        return true;
     }
     
     bool isInLight()

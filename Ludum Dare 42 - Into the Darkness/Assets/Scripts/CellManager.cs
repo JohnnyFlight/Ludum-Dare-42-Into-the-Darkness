@@ -18,6 +18,8 @@ public class CellManager : MonoBehaviour {
         Width = x;
         Height = y;
 
+       
+
         Rows = new List<List<GameObject>>();
 
         for (int rowsLoop = 0; rowsLoop < Width; rowsLoop++)
@@ -25,11 +27,13 @@ public class CellManager : MonoBehaviour {
             List<GameObject> Columns = new List<GameObject>();
             for (int columnsLoop = 0; columnsLoop < Height; columnsLoop++)
             {
-
+                //Nodes BaseNode.GetComponent<Nodes>;
                 Vector3 NewPosition = new Vector3();
                 NewPosition.Set(rowsLoop, columnsLoop, 0.0f);
                 GameObject toInstantiate = Instantiate(BaseNode, NewPosition, transform.rotation);
 
+                Nodes InstanceNode = toInstantiate.GetComponent<Nodes>();
+                InstanceNode.SetType( InventoryItem.Type.Stone );
                 Columns.Add(toInstantiate);
             }
             Rows.Add(Columns);
