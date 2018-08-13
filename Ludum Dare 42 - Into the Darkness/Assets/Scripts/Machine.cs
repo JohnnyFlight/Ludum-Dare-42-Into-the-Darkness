@@ -18,7 +18,7 @@ public class Machine : MonoBehaviour {
     
     public float maxFuel = 20.0f;
     public float fuelAmount = 0.0f;
-    public float fuelConsumption = 11.0f;
+    public float fuelConsumption = 2.0f;
 
     protected float processTimeSeconds = 5.0f;
 
