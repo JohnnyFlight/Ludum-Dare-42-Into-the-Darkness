@@ -5,12 +5,17 @@ public class Machine : MonoBehaviour {
     public Inventory inventory;
 
     //  TODO: Change the key to be a list of Requirements to allow for more complex recipes
+    [SerializeField]
     public Dictionary<InventoryItem.Type, Recipe> recipes;
 
-   protected bool running = false;
+    protected List<InventoryItem.Type> compatibleTypes;
+
+    //  This is beacuse I need to instantiate a Machine before Start gets called sometimes
+    bool isSetup = false;
+
+    protected bool running = false;
     bool NeedsFuel = true;
-
-
+    
     public float maxFuel = 20.0f;
     public float fuelAmount = 0.0f;
     public float fuelConsumption = 11.0f;
@@ -24,9 +29,13 @@ public class Machine : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        recipes = new Dictionary<InventoryItem.Type, Recipe>();
-        
-        Setup();
+
+        if (!isSetup)
+        {
+            recipes = new Dictionary<InventoryItem.Type, Recipe>();
+            compatibleTypes = new List<InventoryItem.Type>();
+            Setup();
+        }
         
         //  If any child class doesn't initialise an inventory
         if (inventory == null)
@@ -51,11 +60,6 @@ public class Machine : MonoBehaviour {
     protected virtual void Setup()
     {
         
-    }
-
-    protected virtual bool ContinueRunning()
-    {
-        return !inventory.IsEmpty();
     }
 
     private void OnMouseOver()
@@ -172,5 +176,17 @@ public class Machine : MonoBehaviour {
     protected virtual Recipe GetRecipe()
     {
         return recipes[inventory.GetArray()[0].type];
+    }
+
+    public bool IsCompatibleWith(InventoryItem.Type type)
+    {
+        if (compatibleTypes == null) {
+            Setup();
+            isSetup = true;
+        }
+
+        if (compatibleTypes.Count == 0) return true;
+
+        return compatibleTypes.Contains(type);
     }
 }

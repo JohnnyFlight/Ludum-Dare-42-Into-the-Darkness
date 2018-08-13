@@ -15,7 +15,7 @@ public class FuelRefiner : Machine
 
         inventory = new Inventory(filter, filterMode);
 
-        onStateSpriteName = "Smelter/smelter_on";
-        offStateSpriteName = "Smelter/smelter_off";
+        onStateSpriteName = "Smelter/RefinerOn";
+        offStateSpriteName = "Smelter/RefinerOff";
     }
 }

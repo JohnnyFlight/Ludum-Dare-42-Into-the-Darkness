@@ -11,6 +11,16 @@ public class Player : MonoBehaviour {
 
     public float startingFuel = 100.0f;
 
+    List<Recipe> CraftableRecipes;
+
+    public enum PlayerState {
+        Active,
+        Inventory,
+        Crafting
+    }
+
+    PlayerState state;
+
     //  How many units away can a torch be lit from
     private float lightTorchRange = 1.0f;
 
@@ -19,17 +29,45 @@ public class Player : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        state = PlayerState.Active;
+
+        CraftableRecipes = new List<Recipe>();
+        //  TODO: Find a better solution for this, so it doesn't need to be maintained constantly
+        CraftableRecipes.Add(new Recipes.PoweredDrill());
+        CraftableRecipes.Add(new Recipes.PoweredQuarry());
+        CraftableRecipes.Add(new Recipes.PoweredSaw());
+
+        CraftableRecipes.Add(new Recipes.CrankDrill());
+        CraftableRecipes.Add(new Recipes.CrankQuarry());
+        CraftableRecipes.Add(new Recipes.CrankSaw());
+
+        CraftableRecipes.Add(new Recipes.Grinder());
+        CraftableRecipes.Add(new Recipes.Loom());
+        CraftableRecipes.Add(new Recipes.Mill());
+        CraftableRecipes.Add(new Recipes.Smelter());
+
+        //  Mech Parts
+        CraftableRecipes.Add(new Recipes.MechLeftLeg());
+        CraftableRecipes.Add(new Recipes.MechRightLeg());
+        CraftableRecipes.Add(new Recipes.MechLeftArm());
+        CraftableRecipes.Add(new Recipes.MechRightArm());
+        CraftableRecipes.Add(new Recipes.MechHead());
+        CraftableRecipes.Add(new Recipes.MechTorso());
+        
+        //  Full Mechs
+        CraftableRecipes.Add(new Recipes.Mech());
+        CraftableRecipes.Add(new Recipes.LightMech());
+
         fuelTanks = new List<FuelTank>();
         fuelTanks.Add(new FuelTank(GameManager.FuelType.Regular, startingFuel));
         fuelTanks.Add(new FuelTank(GameManager.FuelType.Regular, 0.0f));
 
         inventory = new Inventory();
-
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperOre));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.Stone));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.Stone));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.Stone));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.Stone));
+        
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.Gizmo));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperWire));
     }
 
     bool ManualGather() {
@@ -63,7 +101,7 @@ public class Player : MonoBehaviour {
         for (int sourceLoop = 0; sourceLoop < lightsArray.Length; sourceLoop++)
         {
 
-            if (Vector3.Distance((lightsArray[sourceLoop].transform.position), (this.transform.position)) < lightsArray[sourceLoop].radius)
+            if (Vector2.Distance((lightsArray[sourceLoop].transform.position), (this.transform.position)) < lightsArray[sourceLoop].radius)
             {
                 return true;
             }
@@ -73,6 +111,8 @@ public class Player : MonoBehaviour {
     }
 
     void FixedUpdate () {
+        if (state != PlayerState.Active) return;
+
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
@@ -93,8 +133,127 @@ public class Player : MonoBehaviour {
             ManualGather();
         }
 
+        if (Input.GetKeyUp(KeyCode.I))
+        {
+            ToggleInventory();
+        }
+
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+            ToggleCrafting();
+        }
+
         if (!isInLight()) {
             Debug.Log("ded");
+        }
+    }
+
+    private void ToggleCrafting()
+    {
+        switch (state)
+        {
+            case PlayerState.Crafting:
+                state = PlayerState.Active;
+                break;
+            case PlayerState.Active:
+                state = PlayerState.Crafting;
+                break;
+        }
+    }
+
+    private void ToggleInventory()
+    {
+        switch (state)
+        {
+            case PlayerState.Inventory:
+                state = PlayerState.Active;
+                break;
+            case PlayerState.Active:
+                state = PlayerState.Inventory;
+                break;
+        }
+    }
+
+    private void OnGUI()
+    {
+        switch (state)
+        {
+            case PlayerState.Inventory:
+                GUIInventory();
+                break;
+            case PlayerState.Crafting:
+                GUICrafting();
+                break;
+        }
+    }
+
+    private void GUICrafting()
+    {
+        //  Iterate through recipes
+        //  If can craft draw button to craft
+        //  Otherwise don't
+
+        GUI.skin = GameManager.instance.guiSkin;
+
+        float buttonWidth = 300.0f;
+        float x = Screen.width / 2 - buttonWidth / 2;
+        float buttonHeight = 60.0f;
+        float buttonSpacing = 5.0f;
+
+        float totalHeight = 0.0f;
+
+        Vector2 scrollPosition = Vector2.zero;
+
+        GUI.BeginScrollView(new Rect(0f, 0f, Screen.width, Screen.height * 20), scrollPosition, new Rect(0f, 0f, Screen.width, Screen.height));
+
+        for (var i = 0; i < CraftableRecipes.Count; i++)
+        {
+            buttonHeight = 20.0f;
+
+            string recipeText = $"{CraftableRecipes[i].Name} Ingredients:";
+            Recipe.Requirement[] reqs = CraftableRecipes[i].GetRequirements();
+
+            foreach (Recipe.Requirement req in reqs)
+            {
+                recipeText += $"\n\t{req.count} x {req.type}";
+                buttonHeight += 20.0f;
+            }
+
+            if (CraftableRecipes[i].CanCraft(inventory))
+            {
+                if (GUI.Button(new Rect(x, totalHeight, buttonWidth, buttonHeight), recipeText))
+                {
+                    inventory.AddItem(CraftableRecipes[i].Craft(inventory));
+                }
+            }
+            else
+            {
+                GUI.Label(new Rect(x, totalHeight, buttonWidth, buttonHeight), recipeText);
+            }
+
+            totalHeight += buttonHeight + buttonSpacing;
+        }
+
+        GUI.EndScrollView();
+    }
+
+    private void GUIInventory()
+    {
+        //  Show a grid of inventory items and drop them if clicking on the button
+        InventoryItem[] inventoryItems = inventory.GetArray();
+
+        float buttonWidth = 100;
+        float x = Screen.width / 2 - buttonWidth / 2;
+
+        for (var i = 0; i < inventoryItems.Length; i++)
+        {
+            if (GUI.Button(new Rect(x, 25 * i, buttonWidth, 20), inventoryItems[i].type.ToString()))
+            {
+                if (inventoryItems[i].Drop(transform.position))
+                {
+                    inventory.RemoveItem(inventoryItems[i].type);
+                }
+            }
         }
     }
 
@@ -119,7 +278,8 @@ public class Player : MonoBehaviour {
         }
     }
 
-    FuelTank GetEmptiestNonEmptyFuelTankOfType(GameManager.FuelType type) {
+    public FuelTank GetEmptiestNonEmptyFuelTankOfType(GameManager.FuelType type)
+    {
         FuelTank emptiest = null;
         float leastAmountOfFuel = float.PositiveInfinity;
 
@@ -128,6 +288,26 @@ public class Player : MonoBehaviour {
             if (tank.type != type) continue;
 
             if (tank.quantity < leastAmountOfFuel && tank.quantity > 0)
+            {
+                emptiest = tank;
+                leastAmountOfFuel = tank.quantity;
+            }
+        }
+
+        return emptiest;
+    }
+
+    //  If tank is of a different type, then return that too
+    public FuelTank GetEmptiestFuelTankOfType(GameManager.FuelType type)
+    {
+        FuelTank emptiest = null;
+        float leastAmountOfFuel = float.PositiveInfinity;
+
+        foreach (FuelTank tank in fuelTanks)
+        {
+            if (tank.type != type && tank.quantity > 0.0f) continue;
+
+            if (tank.quantity < leastAmountOfFuel)
             {
                 emptiest = tank;
                 leastAmountOfFuel = tank.quantity;

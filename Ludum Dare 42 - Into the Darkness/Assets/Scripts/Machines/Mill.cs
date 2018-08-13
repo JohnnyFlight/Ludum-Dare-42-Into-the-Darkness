@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 
-public class Extruder : Machine
+public class Mill : Machine
 {
     protected override void Setup()
     {
         List<InventoryItem.Type> filter = new List<InventoryItem.Type>();
-        filter.Add(InventoryItem.Type.CopperIngot);
+        filter.Add(InventoryItem.Type.Wood);
 
         Inventory.FilterMode filterMode = Inventory.FilterMode.IncludeFilter;
 
-        recipes.Add(InventoryItem.Type.CopperIngot, new Recipes.CopperWire());
+        recipes.Add(InventoryItem.Type.Wood, new Recipes.Lumber());
 
         inventory = new Inventory(filter, filterMode);
 
-        onStateSpriteName = "Extruder/ExtruderOff";
-        offStateSpriteName = "Extruder/ExtruderOff";
+        onStateSpriteName = "Mill/MillOn";
+        offStateSpriteName = "Mill/MillOff";
     }
 }

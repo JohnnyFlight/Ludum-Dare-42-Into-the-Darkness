@@ -53,13 +53,22 @@ public class Resource : MonoBehaviour
         Player player = FindObjectOfType<Player>();
 
         //  Hacky edge case for fuel
-        if (MyType == InventoryItem.Type.Fuel)
+        if (MyType == InventoryItem.Type.Fuel || MyType == InventoryItem.Type.RefinedFuel)
         {
             //  Add fuel to player
+            GameManager.FuelType fuelType;
+            if (MyType == InventoryItem.Type.Fuel) fuelType = GameManager.FuelType.Regular;
+            else fuelType = GameManager.FuelType.Refined;
 
+            FuelTank fuelTank = player.GetEmptiestFuelTankOfType(fuelType);
+            if (fuelTank == null) return false;
+
+            float leftover = fuelTank.addFuel(5, fuelType);
+            
             //  If all fuel returned then return false
+            if (leftover == 5) return false;
 
-            //  Other return true
+            //  Otherwise return true
             return true;
         }
 
@@ -93,7 +102,7 @@ public class Resource : MonoBehaviour
     void inDark() {
 
         if (Random.Range(0, 100) == 0) {
-            //Destroy(this.gameObject);
+            Destroy(this.gameObject);
         }
     }
 	// Update is called once per frame

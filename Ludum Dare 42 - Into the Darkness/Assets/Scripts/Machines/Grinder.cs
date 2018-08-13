@@ -13,7 +13,7 @@ public class Grinder : Machine
 
         inventory = new Inventory(filter, filterMode);
 
-        onStateSpriteName = "Smelter/grinder_on";
-        offStateSpriteName = "Smelter/grinder_off";
+        onStateSpriteName = "Grinder/GrinderOn";
+        offStateSpriteName = "Grinder/GrinderOff";
     }
 }

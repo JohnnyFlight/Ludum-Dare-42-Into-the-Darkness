@@ -1,16 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-public class Loom : MonoBehaviour {
+public class Loom : Machine
+{
+    protected override void Setup()
+    {
+        List<InventoryItem.Type> filter = new List<InventoryItem.Type>();
+        filter.Add(InventoryItem.Type.Vine);
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        Inventory.FilterMode filterMode = Inventory.FilterMode.IncludeFilter;
+
+        recipes.Add(InventoryItem.Type.Vine, new Recipes.Rope());
+
+        inventory = new Inventory(filter, filterMode);
+
+        onStateSpriteName = "Loom/LoomOn";
+        offStateSpriteName = "Loom/LoomOff";
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Recipe 
 {
     public struct Requirement
@@ -21,9 +22,13 @@ public class Recipe
     protected List<Requirement> Requirements;
     protected InventoryItem.Type Result;
 
+    public string Name { get; protected set; }
+
     //  This is so yo can only instantiate a Base Class of Recipe
     protected Recipe(InventoryItem.Type result)
     {
+        Name = "NoNameFound";    
+
         Requirements = new List<Requirement>();
         Result = result;
     }

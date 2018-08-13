@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PoweredGatherer : Machine
@@ -17,6 +18,6 @@ public class PoweredGatherer : Machine
 
     protected override Recipe GetRecipe()
     {
-        return recipes[0];
+        return recipes[InventoryItem.Type.Nothing];
     }
 }

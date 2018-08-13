@@ -4,15 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
-    public enum FuelType {
+    public enum FuelType
+    {
         Regular,
         Refined
     }
 
     public Text fuelText;
     public Text inventoryText;
+
+    public GUISkin guiSkin;
 
     //  This is the resource prefab
     public GameObject res;
@@ -30,8 +34,8 @@ public class GameManager : MonoBehaviour {
     public int Height;
 
     // Use this for initialization
-    void Awake() {
-
+    void Awake()
+    {
         //Check if instance already exists
         if (instance == null)
         {
@@ -49,43 +53,27 @@ public class GameManager : MonoBehaviour {
         //Sets this to not be destroyed when reloading scene
         DontDestroyOnLoad(gameObject);
         MyFloor = GetComponent<CaveFloorManager>();
-        MyCells= GetComponent<CellManager>();
+        MyCells = GetComponent<CellManager>();
         InitializeGame();
     }
 
-    void InitializeGame() {
+    void InitializeGame()
+    {
         MyFloor.FloorCreate(Width, Height);
         MyCells.CellCreate(Width, Height);
     }
-    
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         UpdateTime(Time.deltaTime);
 
         UpdateUI();
-	}
+    }
 
     private void UpdateUI()
     {
         UpdateFuelText();
-        UpdateInventoryText();
-    }
-
-    private void UpdateInventoryText()
-    {
-        //  TODO: Just provide a linked instance of the player to save on the lookup?
-        Player player = FindObjectOfType<Player>();
-
-        String message = "Items: ";
-        InventoryItem[] items = player.inventory.GetArray();
-
-        foreach (InventoryItem item in items)
-        {
-            message += $"\n\n{item.type.ToString()}";
-        }
-
-        if (inventoryText != null)
-            inventoryText.text = message;
     }
 
     void UpdateFuelText()
@@ -219,5 +207,75 @@ public class GameManager : MonoBehaviour {
         NewPosition.z = -0.1f;
 
         go.transform.position = NewPosition;
+    }
+
+    public bool PlaceMachine(InventoryItem.Type type, Vector3 pos)
+    {
+        int maxX = Width;
+        int maxY = Height;
+
+
+        int nodeX = Mathf.RoundToInt(pos.x);
+        if ((nodeX >= maxX) || (nodeX < 0))
+        {
+            return false;
+        }
+
+        int nodeY = Mathf.RoundToInt(pos.y);
+        if ((nodeY >= maxY) || (nodeY < 0))
+        {
+            return false;
+        }
+
+        Nodes TargetNode = CellManager.instance.Rows[nodeX][nodeY].GetComponent<Nodes>() as Nodes;
+
+        //  This is hacky and dumb but it will work
+        GameObject go = GetMachineFromType(type);
+
+        go.name = type.ToString();
+        Machine machine = go.GetComponent<Machine>();
+
+        if (!machine.IsCompatibleWith(TargetNode.GetResourceType()))
+        {
+            Destroy(machine);
+            return false;
+        }
+
+        Vector3 position = TargetNode.transform.position;
+        position.z = -0.05f;
+        machine.transform.position = position;
+
+        return true;
+    }
+
+    GameObject GetMachineFromType(InventoryItem.Type type)
+    {
+        switch (type)
+        {
+            case InventoryItem.Type.PoweredDrill:
+                return (GameObject)Instantiate(Resources.Load("Prefabs/MachinePrefabs/PoweredDrill"));
+            case InventoryItem.Type.PoweredQuarry:
+                return (GameObject)Instantiate(Resources.Load("Prefabs/MachinePrefabs/PoweredQuarry"));
+            case InventoryItem.Type.PoweredChopper:
+                return (GameObject)Instantiate(Resources.Load("Prefabs/MachinePrefabs/Saw"));
+            case InventoryItem.Type.Smelter:
+                return (GameObject)Instantiate(Resources.Load("Prefabs/MachinePrefabs/Smelter"));
+            case InventoryItem.Type.Grinder:
+                return (GameObject)Instantiate(Resources.Load("Prefabs/MachinePrefabs/Grinder"));
+            case InventoryItem.Type.Loom:
+                return (GameObject)Instantiate(Resources.Load("Prefabs/MachinePrefabs/Loom"));
+            case InventoryItem.Type.Mill:
+                return (GameObject)Instantiate(Resources.Load("Prefabs/MachinePrefabs/Mill"));
+            default:
+                return null;
+        }
+    }
+
+    public bool PlaceLightStone(Vector3 location)
+    {
+        GameObject go = (GameObject)Instantiate(Resources.Load("Prefabs/SetLightStone"));
+        go.transform.position = (Vector3)(Vector2)location + new Vector3(0, 0, -0.1f);
+
+        return true;
     }
 }
