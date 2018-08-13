@@ -17,9 +17,7 @@ public class CellManager : MonoBehaviour {
     public void CellCreate(int x, int y) {
         Width = x;
         Height = y;
-
-       
-
+        
         Rows = new List<List<GameObject>>();
 
         for (int rowsLoop = 0; rowsLoop < Width; rowsLoop++)
@@ -30,10 +28,12 @@ public class CellManager : MonoBehaviour {
                 //Nodes BaseNode.GetComponent<Nodes>;
                 Vector3 NewPosition = new Vector3();
                 NewPosition.Set(rowsLoop, columnsLoop, 0.0f);
-                GameObject toInstantiate = Instantiate(BaseNode, NewPosition, transform.rotation);
+                //GameObject toInstantiate = Instantiate(BaseNode, NewPosition, transform.rotation);
+                GameObject toInstantiate = GetPrefabFromType(GetRandomType());
+                toInstantiate.transform.position = NewPosition;
 
-                Nodes InstanceNode = toInstantiate.GetComponent<Nodes>();
-                InstanceNode.SetType( InventoryItem.Type.Stone );
+                //Nodes InstanceNode = toInstantiate.GetComponent<Nodes>();
+                //InstanceNode.SetType( InventoryItem.Type.Stone );
                 Columns.Add(toInstantiate);
             }
             Rows.Add(Columns);
@@ -41,6 +41,49 @@ public class CellManager : MonoBehaviour {
         }
     }
 
+    InventoryItem.Type GetRandomType()
+    {
+        int r = Random.Range(0, 100);
+
+        if (r < 5) {
+            return InventoryItem.Type.IronOre;
+        }
+        else if (r < 10)
+        {
+            return InventoryItem.Type.CopperOre;
+        }
+        else if (r < 15)
+        {
+            return InventoryItem.Type.Wood;
+        }
+        else if (r < 20)
+        {
+            return InventoryItem.Type.Vine;
+        }
+        else
+        {
+            return InventoryItem.Type.Stone;
+        }
+    }
+
+    GameObject GetPrefabFromType(InventoryItem.Type type)
+    {
+        switch (type)
+        {
+            case InventoryItem.Type.Wood:
+                return (GameObject)Instantiate(Resources.Load("Prefabs/NodePrefabs/WoodNode"));
+            case InventoryItem.Type.Stone:
+                return (GameObject)Instantiate(Resources.Load("Prefabs/NodePrefabs/StoneNode"));
+            case InventoryItem.Type.Vine:
+                return (GameObject)Instantiate(Resources.Load("Prefabs/NodePrefabs/VineNode"));
+            case InventoryItem.Type.CopperOre:
+                return (GameObject)Instantiate(Resources.Load("Prefabs/NodePrefabs/CopperOreNode"));
+            case InventoryItem.Type.IronOre:
+                return (GameObject)Instantiate(Resources.Load("Prefabs/NodePrefabs/IronOreNode"));
+            default:
+                return null;
+        }
+    }
 
     void Awake () {
 

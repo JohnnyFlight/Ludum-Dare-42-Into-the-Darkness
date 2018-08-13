@@ -10,6 +10,12 @@ public class LightSource : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (MyLight == null)
+            SetupLight();
+    }
+
+    void SetupLight()
+    {
         MyLight = this.gameObject.AddComponent<Light>();
         MyLight.type = LightType.Spot;
         MyLight.spotAngle = 60.0f;
@@ -25,6 +31,8 @@ public class LightSource : MonoBehaviour {
 
     public void setRadius(float newRadius) {
         radius = newRadius;
+
+        if (MyLight == null) SetupLight();
 
         MyLight.spotAngle = radius*6.0f;
 

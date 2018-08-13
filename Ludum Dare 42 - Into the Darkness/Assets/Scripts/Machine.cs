@@ -103,6 +103,11 @@ public class Machine : MonoBehaviour {
         Production();
 	}
 
+    protected virtual bool ContinueRunning()
+    {
+        return !inventory.IsEmpty();
+    }
+
     protected virtual void Production()
     {
         if (!running)
@@ -182,6 +187,7 @@ public class Machine : MonoBehaviour {
     public bool IsCompatibleWith(InventoryItem.Type type)
     {
         if (compatibleTypes == null) {
+            compatibleTypes = new List<InventoryItem.Type>();
             Setup();
             isSetup = true;
         }

@@ -62,7 +62,30 @@ public class Torch : MonoBehaviour {
         if (fuelAmount <= 0.0f) {
             fuelAmount = 0.0f;
             changeState(TorchState.Ember);
+            
+            DepletedEvent();
         }
+    }
+
+    private void OnMouseDown()
+    {
+        //  Get the player
+        Player player = FindObjectOfType<Player>();
+
+        //  Does the player have a matching fuel type?
+        FuelTank emptiest = player.GetEmptiestNonEmptyFuelTankOfType(type);
+
+        //  If so, get the emptiest tank with that type and put it in the torch
+        if (emptiest != null)
+        {
+            float leftover = addFuel(emptiest.quantity, emptiest.type);
+            emptiest.SetFuel(leftover, emptiest.type);
+        }
+    }
+
+    protected virtual void DepletedEvent()
+    {
+
     }
 
     private void changeState(TorchState newState)
@@ -93,8 +116,9 @@ public class Torch : MonoBehaviour {
 
     void ChangeSprite(String name)
     {
-        Sprite spr = Resources.Load<Sprite>("Sprites/Torch/" + name);
         SpriteRenderer rend = GetComponent<SpriteRenderer>();
+        if (rend == null) return;
+        Sprite spr = Resources.Load<Sprite>("Sprites/Torch/" + name);
         rend.sprite = spr;
     }
 

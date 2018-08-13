@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,18 @@ public class GameManager : MonoBehaviour
 
     //  This is the resource prefab
     public GameObject res;
+
+    public float DarknessIntensifyBurnRateMultiplier = 1.1f;
+
+    protected static IList<InventoryItem.Type> ItemsThatIntensifyDarkness = new ReadOnlyCollection<InventoryItem.Type>
+        (new List<InventoryItem.Type>{
+            InventoryItem.Type.MechHead,
+            InventoryItem.Type.MechTorso,
+            InventoryItem.Type.MechLeftLeg,
+            InventoryItem.Type.MechRightLeg,
+            InventoryItem.Type.MechLeftArm,
+            InventoryItem.Type.MechRightArm
+        });
 
     //Static instance of GameManager which allows it to be accessed by any other script.
     public static GameManager instance = null;
@@ -228,7 +241,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
         Vector3 NewPosition = position + (Vector3)UnityEngine.Random.insideUnitCircle * range;
-        NewPosition.z = -0.075f;
+        NewPosition.z = -0.1f;
 
         go.transform.position = NewPosition;
     }
@@ -301,5 +314,25 @@ public class GameManager : MonoBehaviour
         go.transform.position = (Vector3)(Vector2)location + new Vector3(0, 0, -0.1f);
 
         return true;
+    }
+
+    public void ItemMade(InventoryItem.Type type)
+    {
+        if (ItemsThatIntensifyDarkness.Contains(type))
+        {
+            IntensifyDarkness();
+        }
+    }
+
+    private void IntensifyDarkness()
+    {
+        Debug.Log("Darkness intensifies!");
+        //  For now just add a multiplier to the burn rate of all torches
+        Torch[] torches = FindObjectsOfType<Torch>();
+
+        foreach (Torch torch in torches)
+        {
+            torch.fuelBurnRatePerSecond *= DarknessIntensifyBurnRateMultiplier;
+        }
     }
 }

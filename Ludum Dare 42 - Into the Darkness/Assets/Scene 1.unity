@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0, g: 0.015723275, b: 0.047169805, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -321,11 +321,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4067748998239516, guid: 14cb0bf8d0844fb4c8c152bba9cc6956, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 11.47
+      value: 12.74
       objectReference: {fileID: 0}
     - target: {fileID: 4067748998239516, guid: 14cb0bf8d0844fb4c8c152bba9cc6956, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 12.24
+      value: 11.09
       objectReference: {fileID: 0}
     - target: {fileID: 4067748998239516, guid: 14cb0bf8d0844fb4c8c152bba9cc6956, type: 2}
       propertyPath: m_LocalPosition.z
@@ -522,6 +522,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1938172890751314, guid: 59d6af834fed59c48a15e9a7db5910fb, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59d6af834fed59c48a15e9a7db5910fb, type: 2}
   m_IsPrefabAsset: 0
@@ -602,6 +606,47 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1590204712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1590204713}
+  - component: {fileID: 1590204714}
+  m_Layer: 0
+  m_Name: LightSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1590204713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1590204712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2061564586}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1590204714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1590204712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e726333f7536a184690e49c4cb02d907, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 5
 --- !u!1 &1751220063
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,6 +709,7 @@ MonoBehaviour:
   inventoryText: {fileID: 1755466776}
   guiSkin: {fileID: 11400000, guid: 8bb80008b12b4f14683d09c6e6481ca5, type: 2}
   res: {fileID: 1175505562797726, guid: 7eea9988078e7ff41afad3628ac116b2, type: 2}
+  DarknessIntensifyBurnRateMultiplier: 1.1
   MyFloor: {fileID: 0}
   daysPassed: 0
   MyCells: {fileID: 0}
@@ -795,6 +841,68 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4788497189662446, guid: 390ed6ec5bef82a4bb64de46cce831d7, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454653238978780, guid: 390ed6ec5bef82a4bb64de46cce831d7, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 390ed6ec5bef82a4bb64de46cce831d7, type: 2}
   m_IsPrefabAsset: 0
+--- !u!4 &1972178772 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4067748998239516, guid: 14cb0bf8d0844fb4c8c152bba9cc6956,
+    type: 2}
+  m_PrefabInternal: {fileID: 890942671}
+--- !u!1 &2061564585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2061564586}
+  - component: {fileID: 2061564587}
+  m_Layer: 0
+  m_Name: Match
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2061564586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2061564585}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1590204713}
+  m_Father: {fileID: 1972178772}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2061564587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2061564585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9cb9b32634d694c997348f6b1e2048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  fuelAmount: 0
+  baseLightSourceRadius: 5
+  lightSourceRadius: 0
+  state: 0
+  fuelBurnRatePerSecond: 1
+  lowFuelThreshold: 5
+  maxFuel: 20

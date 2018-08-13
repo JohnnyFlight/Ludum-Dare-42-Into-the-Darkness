@@ -9,43 +9,61 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1161215368261422}
+  m_RootGameObject: {fileID: 1385477500303918}
   m_IsPrefabAsset: 1
---- !u!1 &1161215368261422
+--- !u!1 &1385477500303918
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4890249568448476}
-  - component: {fileID: 212021533000286966}
+  - component: {fileID: 4770095254761070}
+  - component: {fileID: 114901854485983926}
+  - component: {fileID: 212369901046090308}
   m_Layer: 0
-  m_Name: CrankDrill
+  m_Name: WoodNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4890249568448476
+--- !u!4 &4770095254761070
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1161215368261422}
+  m_GameObject: {fileID: 1385477500303918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.47, y: 10.574602, z: -0.048828125}
+  m_LocalPosition: {x: 9.558425, y: 11.295131, z: 5.142578}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &212021533000286966
+--- !u!114 &114901854485983926
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1385477500303918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836077978955fd5439c8d09443fe4e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyResource: 9
+  StoneFab: {fileID: 0}
+  WoodFab: {fileID: 0}
+  VinesFab: {fileID: 0}
+  IronOreFab: {fileID: 0}
+  CopperOreFab: {fileID: 0}
+--- !u!212 &212369901046090308
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1161215368261422}
+  m_GameObject: {fileID: 1385477500303918}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -55,7 +73,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: e29cf6447b320c94a88ad9eb92676270, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -75,7 +93,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4a4eaf4989d10d448a3bd90cceba3fe4, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,6 +101,6 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

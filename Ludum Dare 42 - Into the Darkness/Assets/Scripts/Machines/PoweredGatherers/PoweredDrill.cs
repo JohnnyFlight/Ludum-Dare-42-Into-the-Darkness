@@ -24,6 +24,8 @@ public class PoweredDrill : PoweredGatherer
         if ((ThisVein == InventoryItem.Type.IronOre)||(ThisVein == InventoryItem.Type.CopperOre)) {
             WhatVein = ThisVein;
 
+            if (recipes == null) recipes = new Dictionary<InventoryItem.Type, Recipe>();
+
             if (WhatVein == InventoryItem.Type.IronOre)
             {
                 recipes.Add(InventoryItem.Type.Nothing, new Recipes.GatherIronOre());

@@ -16,7 +16,8 @@ public class Player : MonoBehaviour {
     public enum PlayerState {
         Active,
         Inventory,
-        Crafting
+        Crafting,
+        Dead
     }
 
     PlayerState state;
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour {
 
         CraftableRecipes = new List<Recipe>();
         //  TODO: Find a better solution for this, so it doesn't need to be maintained constantly
+        CraftableRecipes.Add(new Recipes.MechRightArm());
         CraftableRecipes.Add(new Recipes.PoweredDrill());
         CraftableRecipes.Add(new Recipes.PoweredQuarry());
         CraftableRecipes.Add(new Recipes.PoweredSaw());
@@ -50,7 +52,6 @@ public class Player : MonoBehaviour {
         CraftableRecipes.Add(new Recipes.MechLeftLeg());
         CraftableRecipes.Add(new Recipes.MechRightLeg());
         CraftableRecipes.Add(new Recipes.MechLeftArm());
-        CraftableRecipes.Add(new Recipes.MechRightArm());
         CraftableRecipes.Add(new Recipes.MechHead());
         CraftableRecipes.Add(new Recipes.MechTorso());
         
@@ -67,6 +68,14 @@ public class Player : MonoBehaviour {
         inventory.AddItem(new InventoryItem(InventoryItem.Type.Gizmo));
         inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
         inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperWire));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.LightStone));
+
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.AdvancedGizmo));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperWire));
         inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperWire));
     }
 
@@ -123,11 +132,6 @@ public class Player : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.L))
-        {
-            AttemptLightTorch();
-        }
-
         if (Input.GetKeyUp(KeyCode.E))
         {
             ManualGather();
@@ -142,15 +146,16 @@ public class Player : MonoBehaviour {
         {
             ToggleCrafting();
         }
-
-
+        
         if (Input.GetKey(KeyCode.Q))
         {
             AttemptCrank();
         }
 
-        if (!isInLight()) {
-            Debug.Log("ded");
+        if (!isInLight() && state != PlayerState.Dead) {
+            //  Start Match
+            Match match = GetComponentInChildren<Match>();
+            match.addFuel(5, GameManager.FuelType.Regular);
         }
     }
 
@@ -202,7 +207,15 @@ public class Player : MonoBehaviour {
             case PlayerState.Crafting:
                 GUICrafting();
                 break;
+            case PlayerState.Dead:
+                GUIDead();
+                break;
         }
+    }
+
+    private void GUIDead()
+    {
+        GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "U R DED LMAO");
     }
 
     private void GUICrafting()
@@ -241,7 +254,9 @@ public class Player : MonoBehaviour {
             {
                 if (GUI.Button(new Rect(x, totalHeight, buttonWidth, buttonHeight), recipeText))
                 {
-                    inventory.AddItem(CraftableRecipes[i].Craft(inventory));
+                    InventoryItem result = CraftableRecipes[i].Craft(inventory);
+                    inventory.AddItem(result);
+                    GameManager.instance.ItemMade(result.type);
                 }
             }
             else
@@ -333,5 +348,19 @@ public class Player : MonoBehaviour {
         }
 
         return emptiest;
+    }
+
+    public void MatchExtinguished()
+    {
+        //  If in dark then die
+        if (!isInLight())
+        {
+            Debug.Log("ded");
+            state = PlayerState.Dead;
+        }
+        else
+        {
+            
+        }
     }
 }

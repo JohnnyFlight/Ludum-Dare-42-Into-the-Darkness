@@ -5,6 +5,7 @@ using Random = UnityEngine.Random;
 
 public class Nodes : MonoBehaviour {
 
+    [SerializeField]
     InventoryItem.Type MyResource;
 
     public GameObject StoneFab;
