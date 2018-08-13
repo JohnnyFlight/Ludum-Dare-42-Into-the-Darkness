@@ -125,7 +125,7 @@ MonoBehaviour:
   fuelAmount: 10
   baseLightSourceRadius: 8
   lightSourceRadius: 0
-  state: 1
+  state: 0
   fuelBurnRatePerSecond: 0.1
   lowFuelThreshold: 2
   maxFuel: 10

@@ -35,7 +35,6 @@ public class Player : MonoBehaviour {
         CraftableRecipes = new List<Recipe>();
         //  TODO: Find a better solution for this, so it doesn't need to be maintained constantly
         CraftableRecipes.Add(new Recipes.PoweredDrill());
-        CraftableRecipes.Add(new Recipes.MechRightArm());
         CraftableRecipes.Add(new Recipes.PoweredQuarry());
         CraftableRecipes.Add(new Recipes.PoweredSaw());
 
@@ -52,6 +51,7 @@ public class Player : MonoBehaviour {
         CraftableRecipes.Add(new Recipes.MechLeftLeg());
         CraftableRecipes.Add(new Recipes.MechRightLeg());
         CraftableRecipes.Add(new Recipes.MechLeftArm());
+        CraftableRecipes.Add(new Recipes.MechRightArm());
         CraftableRecipes.Add(new Recipes.MechHead());
         CraftableRecipes.Add(new Recipes.MechTorso());
         
@@ -66,17 +66,10 @@ public class Player : MonoBehaviour {
         inventory = new Inventory(capacity: 10);
         
         inventory.AddItem(new InventoryItem(InventoryItem.Type.Gizmo));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperWire));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.LightStone));
-
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.AdvancedGizmo));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.IronIngot));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperWire));
-        inventory.AddItem(new InventoryItem(InventoryItem.Type.CopperWire));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.Gizmo));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.Gizmo));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.Gizmo));
+        inventory.AddItem(new InventoryItem(InventoryItem.Type.Gizmo));
     }
 
     bool ManualGather() {

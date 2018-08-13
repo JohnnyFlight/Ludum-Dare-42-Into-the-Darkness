@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class Resource : MonoBehaviour
 {
+    [SerializeField]
     InventoryItem.Type MyType;
     SpriteRenderer MyRenderer;
 
