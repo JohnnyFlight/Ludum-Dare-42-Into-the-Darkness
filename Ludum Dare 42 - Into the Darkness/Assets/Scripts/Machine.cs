@@ -15,9 +15,10 @@ public class Machine : MonoBehaviour {
     public float fuelAmount = 0.0f;
     public float fuelConsumption = 11.0f;
 
-    float processTimeSeconds = 5.0f;
+    protected float processTimeSeconds = 5.0f;
 
-    float currentTimeSeconds = 0.0f;
+    [SerializeField]
+    protected float currentTimeSeconds = 0.0f;
 
     protected string onStateSpriteName = "";
     protected string offStateSpriteName = "";
@@ -37,7 +38,7 @@ public class Machine : MonoBehaviour {
         }
 	}
 
-    bool BurnFuel(){
+    protected bool BurnFuel(){
         fuelAmount -= fuelConsumption;
 
         if (fuelAmount < 0.0f)
@@ -95,7 +96,12 @@ public class Machine : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		if (!running)
+        Production();
+	}
+
+    protected virtual void Production()
+    {
+        if (!running)
         {
             if (ContinueRunning())
             {
@@ -129,14 +135,9 @@ public class Machine : MonoBehaviour {
                 }
             }
         }
-	}
-
-    protected virtual bool ContinueRunning()
-    {
-        return !inventory.IsEmpty();
     }
 
-    void StartRunning()
+    protected void StartRunning()
     {
         running = true;
         currentTimeSeconds = 0.0f;
@@ -144,7 +145,7 @@ public class Machine : MonoBehaviour {
         ChangeSprite(onStateSpriteName);
     }
 
-    void StopRunning()
+    protected void StopRunning()
     {
         running = false;
 
@@ -158,7 +159,7 @@ public class Machine : MonoBehaviour {
         rend.sprite = spr;
     }
 
-    void MakeItem()
+    protected void MakeItem()
     {
         //  Get top inventory item and make associated recipe
         InventoryItem result = GetRecipe().Craft(inventory);

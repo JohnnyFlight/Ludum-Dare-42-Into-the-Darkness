@@ -63,7 +63,7 @@ public class Player : MonoBehaviour {
         for (int sourceLoop = 0; sourceLoop < lightsArray.Length; sourceLoop++)
         {
 
-            if (Vector3.Distance((lightsArray[sourceLoop].transform.position), (this.transform.position)) < lightsArray[sourceLoop].radius)
+            if (Vector2.Distance((lightsArray[sourceLoop].transform.position), (this.transform.position)) < lightsArray[sourceLoop].radius)
             {
                 return true;
             }
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         rb.velocity = new Vector2(moveHorizontal, moveVertical) * moveSpeed;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -93,9 +93,27 @@ public class Player : MonoBehaviour {
             ManualGather();
         }
 
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            AttemptCrank();
+        }
+
         if (!isInLight()) {
             Debug.Log("ded");
         }
+    }
+
+    void AttemptCrank() {
+        CrankGatherer nearest = GameManager.instance.GetNearestCrank(this.gameObject.transform.position, 1.0f);
+
+        if (nearest == null)
+        {
+            //  TODO: Other stuff here, like start a shrug animation?
+            return;
+        }
+
+        nearest.IncreaseCrankTurn();
     }
 
     private void AttemptLightTorch()

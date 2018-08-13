@@ -13,7 +13,7 @@ public class Torch : MonoBehaviour {
 
     public GameManager.FuelType type = GameManager.FuelType.Regular;
     public float fuelAmount = 0.0f;
-    public float baseLightSourceRadius = 10.0f;
+    public float baseLightSourceRadius = 5.0f;
     public float lightSourceRadius;
 
     public TorchState state = TorchState.Unlit;

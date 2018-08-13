@@ -65,6 +65,6 @@ public class CellManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        int i = 0;
+        
 	}
 }

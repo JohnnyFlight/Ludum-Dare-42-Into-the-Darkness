@@ -114,4 +114,12 @@ namespace Recipes
             Requirements.Add(new Requirement(InventoryItem.Type.Vine, 1));
         }
     }
+
+    class Lumber : Recipe
+    {
+        public Lumber() : base(InventoryItem.Type.Lumber)
+        {
+            Requirements.Add(new Requirement(InventoryItem.Type.Wood, 1));
+        }
+    }
 }
