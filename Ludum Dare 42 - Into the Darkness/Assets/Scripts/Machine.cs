@@ -103,11 +103,6 @@ public class Machine : MonoBehaviour {
         Production();
 	}
 
-    protected virtual bool ContinueRunning()
-    {
-        return !inventory.IsEmpty();
-    }
-
     protected virtual void Production()
     {
         if (!running)
@@ -166,6 +161,11 @@ public class Machine : MonoBehaviour {
         Sprite spr = Resources.Load<Sprite>("Sprites/Machines/" + name);
         SpriteRenderer rend = GetComponent<SpriteRenderer>();
         rend.sprite = spr;
+    }
+
+    protected virtual bool ContinueRunning()
+    {
+        return !inventory.IsEmpty();
     }
 
     protected void MakeItem()
