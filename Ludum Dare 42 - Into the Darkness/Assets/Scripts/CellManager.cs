@@ -27,7 +27,7 @@ public class CellManager : MonoBehaviour {
             {
                 //Nodes BaseNode.GetComponent<Nodes>;
                 Vector3 NewPosition = new Vector3();
-                NewPosition.Set(rowsLoop, columnsLoop, 0.0f);
+                NewPosition.Set(rowsLoop, columnsLoop, -1.0f);
                 //GameObject toInstantiate = Instantiate(BaseNode, NewPosition, transform.rotation);
                 GameObject toInstantiate = GetPrefabFromType(GetRandomType());
                 toInstantiate.transform.position = NewPosition;
